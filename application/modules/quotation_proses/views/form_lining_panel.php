@@ -1,7 +1,7 @@
 <div class="col-md-6" data-type="panel" id="type_lining<?= $no ?>">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<select class="form-control required select2" name="product_lining[<?= $no ?>][bukaan]" id="bukaan-lining<?= $no ?>">
 					<option value="" <?= $dataPanel->bukaan = '' ? 'selected' : '' ?>></option>
@@ -14,8 +14,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_kiri-lining<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_kiri-lining<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required ovl_kiri-lining" value="<?= $dataPanel->ovl_kiri != '' ? $dataPanel->ovl_kiri : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_lining[<?= $no ?>][ovl_kiri]" id="ovl_kiri-lining<?= $no ?>">
@@ -27,8 +27,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_tengah-lining<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_tengah-lining<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required ovl_tengah-lining" value="<?= $dataPanel->ovl_tengah != '' ? $dataPanel->ovl_tengah : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_lining[<?= $no ?>][ovl_tengah]" id="ovl_tengah-lining<?= $no ?>">
@@ -40,34 +40,47 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="jahit_h-lining<?= $no ?>">Jahit Horizontal <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="jahit_h-lining<?= $no ?>">Jahit Kanan-Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required jahit_h-lining" value="<?= $dataPanel->jahit_h != '' ? $dataPanel->jahit_h : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_lining[<?= $no ?>][jahit_h]" id="jahit_h-lining<?= $no ?>">
 					<div class="input-group-addon">cm</div>
 				</div>
-				<label class="label label-danger jahit_h-lining<?= $no ?> hideIt">Jahit Horizontal Can't be empty!</label>
+				<label class="label label-danger jahit_h-lining<?= $no ?> hideIt">Jahit Kanan-Kiri Can't be empty!</label>
 			</strong>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="jahit_v-lining<?= $no ?>">Jahit Vertikal <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="jahit_v-lining<?= $no ?>">Jahit Atas-Bawah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required jahit_v-lining" value="<?= $dataPanel->jahit_v != '' ? $dataPanel->jahit_v : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_lining[<?= $no ?>][jahit_v]" id="jahit_v-lining<?= $no ?>">
 					<div class="input-group-addon">cm</div>
 				</div>
-				<label class="label label-danger jahit_v-lining<?= $no ?> hideIt">Jahit Vertikal Can't be empty!</label>
+				<label class="label label-danger jahit_v-lining<?= $no ?> hideIt">Jahit Atas-Bawah Can't be empty!</label>
 			</strong>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="fullness-lining<?= $no ?>">Fullness <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="vertikal_repeat-lining<?= $no ?>">Vertikal Repeat <span class="text-red">*</span></label>
+		<div class="col-md-8">
+			<strong>
+				<div class="input-group">
+					<input type="number" min="0" class="form-control required vertikal_repeat-lining" value="<?= $dataPanel->vertikal_repeat != '' ? $dataPanel->vertikal_repeat : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_lining[<?= $no ?>][vertikal_repeat]" id="vertikal_repeat-lining<?= $no ?>">
+					<div class="input-group-addon">cm</div>
+				</div>
+				<label class="label label-danger vertikal_repeat-lining<?= $no ?> hideIt">Vertikal Repeat Can't be empty!</label>
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="fullness-lining<?= $no ?>">Fullness <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required fullness-lining" value="<?= $dataPanel->fullness != '' ? $dataPanel->fullness : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_lining[<?= $no ?>][fullness]" id="fullness-lining<?= $no ?>">
@@ -79,8 +92,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rumus_panel-lining<?= $no ?>">Rumus Panel</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="rumus_panel-lining<?= $no ?>">Rumus Panel</label>
+		<div class="col-md-8">
 			<strong>
 				<input type="text" readonly class="form-control rumus_panel-lining" value="<?= $dataPanel->rumus_panel != '' ? $dataPanel->rumus_panel : '' ?>" placeholder="0" name="product_lining[<?= $no ?>][rumus_panel]" id="rumus_panel-lining<?= $no ?>">
 				<label class="label label-danger rumus_panel-lining<?= $no ?> hideIt">Rumus Panel Can't be empty!</label>
@@ -89,8 +102,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="r_up_panel-lining<?= $no ?>">Round Up Panel <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="r_up_panel-lining<?= $no ?>">Round Up Panel <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<input type="number" class="form-control required r_up_panel-lining" value="<?= $dataPanel->round_up != '' ? $dataPanel->round_up : '' ?>" placeholder="0" min="0" name="product_lining[<?= $no ?>][r_up_panel]" id="r_up_panel-lining<?= $no ?>" data-id="<?= $no ?>">
 				<label class="label label-danger r_up_panel-lining<?= $no ?> hideIt">Round Up Panel Can't be empty!</label>
@@ -104,8 +117,8 @@
 
 <div class="col-md-6">
 	<!-- <div class="form-group">
-		<label class="control-label col-sm-3" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control required text-right qty_unit" data-id="<?= $no ?>" placeholder="0" min="0" name="product_lining[<?= $no ?>][qty_unit]" id="qty_unit<?= $no ?>">
@@ -117,8 +130,8 @@
 	</div> -->
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="t_kain-lining<?= $no ?>">Total Kain <span class="text-red">*</span></label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="t_kain-lining<?= $no ?>">Total Kain <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="text" readonly class="form-control" value="<?= $dataPanel->t_kain != '' ? $dataPanel->t_kain : '' ?>" placeholder="0" name="product_lining[<?= $no ?>][t_kain]" id="t_kain-lining<?= $no ?>">
@@ -130,8 +143,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="disc_lining<?= $no ?>">Diskon Fabric </span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="disc_lining<?= $no ?>">Diskon Fabric </span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control disc_lining" value="<?= $dataPanel->disc_persen != '' ? $dataPanel->disc_persen : '' ?>" placeholder="0" min="0" data-id="<?= $no ?>" name="product_lining[<?= $no ?>][disc_lining]" id="disc_lining<?= $no ?>">
@@ -146,8 +159,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<span class="input-group-addon">Rp.</span>
@@ -160,8 +173,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="mainten-lining<?= $no ?>">Maintenance <span class="text-red">*</span></label>
-		<div class="col-md-3 col-sm-3">
+		<label class="col-sm-4" for="mainten-lining<?= $no ?>">Maintenance <span class="text-red">*</span></label>
+		<div class="col-md-8 col-sm-3">
 			<strong>
 				<label class="label label-danger mainten-lining<?= $no ?> hideIt">Keterangan Can't be empty!</label>
 			</strong>
@@ -182,8 +195,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="curtain-lining<?= $no ?>">Lining Roll</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="curtain-lining<?= $no ?>">Lining Roll</label>
+		<div class="col-md-8">
 			<table width="100%" data-id="<?= $no ?>" id="dtBook-lining<?= $no ?>" class="dtBook-lining table-bordered table-condensed table-striped">
 				<thead>
 					<tr>
@@ -229,8 +242,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ex_comm-lining<?= $no ?>">External Commission</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ex_comm-lining<?= $no ?>">External Commission</label>
+		<div class="col-md-8">
 			<!--<input type="text" class="form-control required" name="product_lining[<?= $no ?>][ex_comm]" id="ex_comm<?= $no ?>">
 			<label class="label label-danger ex_comm<?= $no ?> hideIt">External Commission Can't be empty!</label>
 		-->
@@ -279,8 +292,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket-lining<?= $no ?>">Keterangan</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ket-lining<?= $no ?>">Keterangan</label>
+		<div class="col-md-8">
 			<strong>
 				<textarea type="text" class="form-control" placeholder="Keterangan" name="product_lining[<?= $no ?>][ket]" id="ket-lining<?= $no ?>"><?= $dataPanel->keterangan != '' ? $dataPanel->keterangan : '' ?></textarea>
 				<label class="label label-danger ket-lining<?= $no ?> hideIt">Keterangan Can't be empty!</label>

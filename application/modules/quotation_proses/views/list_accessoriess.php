@@ -24,7 +24,6 @@
         ;
     }
 </style>
-<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.css') ?>">
 
 <div class="" id="list-data">
     <form id="form-detail-so-pending" method="post">
@@ -66,9 +65,6 @@
         </table>
     </form>
 </div>
-
-<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.min.js') ?>"></script>
 
 <!-- page script -->
 <script type="text/javascript">

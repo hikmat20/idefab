@@ -6,10 +6,6 @@ if ($count != '') {
     $no = $count + 1;
 }
 $rooms = $this->db->get_where('quotation_room', ['id_quotation' => $id])->result();
-// echo "<pre>";
-// print_r($rooms);
-// echo "</pre>";
-
 ?>
 
 <?php
@@ -19,54 +15,255 @@ if (!empty($rooms)) {
     foreach ($rooms as $room) {
         $no++;
 ?>
-        <div class="form-horizontal">
-            <div class="box box-solid">
-                <div data-item="ruang" data-count="<?= $no ?>">
-                    <div class="box-header">
-                        <legend class="legend"><label> Deskripsi Jendela[<?= $no ?>]</label>
+        <div data-item="ruang" data-count="<?= $no ?>">
+            <div class="form-horizontal">
+                <div class="box box-default" style="border-top-color:indigo">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><label for="">Deskripsi Jendela[<?= $no ?>]</label></h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-info btn-sm show-hide-btn" data-widget="collapse" style="margin:0px 5px">Hide</button>
                             <a href="javascript:void(0)" class="pull-right btn btn-sm btn-danger del_jendela"><i class="fa fa-trash"></i> Delete Jendela</a>
-                            <!-- <button type="button" id="del_jendela<?= $no ?>" data-id="<?= $no ?>" class="pull-right btn btn-sm btn-danger del_jendela"><i class="fa fa-trash"></i></button> -->
-                        </legend>
+                        </div>
                         <input type="hidden" data-id="<?= $no ?>" id="id_ruangan<?= $no ?>" class="form-control required" value="<?= $room->id_ruangan ?>" name="ruang[<?= $no ?>][id_ruangan]">
                     </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="ruangan">Ruangan <span class='text-red'>*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control required" value="<?= $room != '' ? $room->name_room : '' ?>" id="ruang<?= $no ?>" placeholder="Nama Ruangan" name="ruang[<?= $no ?>][nm_ruang]">
+                                        <label class="label label-danger ruang<?= $no ?> hideIt">Ruangan Can't be empty!</label></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="lantai">Lantai <span class='text-red'>*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control required" value="<?= $room != '' ? $room->floor : '' ?>" placeholder="Lantai" id="lantai<?= $no ?>" name="ruang[<?= $no ?>][lantai]">
+                                        <label class="label label-danger lantai<?= $no ?> hideIt">Lantai Can't be empty!</label></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="jendela">Jendela <span class='text-red'>*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control required" value="<?= $room != '' ? $room->window : '' ?>" placeholder="Jendela" id="jendela<?= $no ?>" name="ruang[<?= $no ?>][jendela]">
+                                        <label class="label label-danger jendela<?= $no ?> hideIt">Jendela Can't be empty!</label></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="lebar">Lebar <span class='text-red'>*</span></label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="number" min="0" class="form-control required lebar" value="<?= $room != '' ? $room->width_window : '' ?>" data-id="<?= $no ?>" placeholder="0" id="lebar<?= $no ?>" name="ruang[<?= $no ?>][lebar]">
+                                            <span class="input-group-addon">cm</span>
+                                        </div>
+                                        <label class="label label-danger lebar<?= $no ?> hideIt">Lebar Can't be empty!</label></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="tinggi">Tinggi <span class='text-red'>*</span></label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="number" min="0" class="form-control required tinggi" value="<?= $room != '' ? $room->height_window : '' ?>" placeholder="0" data-id="<?= $no ?>" id="tinggi<?= $no ?>" name="ruang[<?= $no ?>][tinggi]">
+                                            <span class="input-group-addon">cm</span>
+                                        </div>
+                                        <label class="label label-danger tinggi<?= $no ?> hideIt">Tinggi Can't be empty!</label></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2" for="tinggi">Qty Unit <span class='text-red'>*</span></label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="number" min="0" class="form-control required qty_unit" value="<?= $room != '' ? $room->qty_unit : '' ?>" placeholder="0" data-id="<?= $no ?>" id="qty_unit<?= $no ?>" name="ruang[<?= $no ?>][qty_unit]">
+                                            <span class="input-group-addon">pcs</span>
+                                        </div>
+                                        <label class="label label-danger qty_unit<?= $no ?> hideIt">Qty Unit Can't be empty!</label></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2">Installation <span class='text-red'>*</span></label>
+                                    <div class="col-md-4">
+                                        <?php
+                                        if ($room->installation == 'yes') {
+                                            $yes = 'checked';
+                                            $No = '';
+                                            $def = '';
+                                        } else if ($room->installation == 'no') {
+                                            $yes = '';
+                                            $No = 'checked';
+                                            $def = '';
+                                        } else {
+                                            $yes = '';
+                                            $No = '';
+                                            $def = 'checked';
+                                        }
+                                        ?>
+                                        <div class="input-group">
+                                            <label style="padding-left:20px"><input type="radio" <?= $No ?> class="required" name="ruang[<?= $no ?>][installation]" value="no"><span style="margin-left:5px">No</span></label>
+                                            <label style="margin-left:20px"><input type="radio" <?= $yes ?> class="required" name="ruang[<?= $no ?>][installation]" value="yes"><span style="margin-left:5px">Yes</span></label>
+                                            <label class="label label-danger ruang[<?= $no ?>][installation] hideIt">Installation Can't be empty!</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-offset-1">
+                                <!-- <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class=" for="upload">Upload Gambar</label>
+                                        <input type="file" id="upload_<?= $no ?>" name="uplaod_gambar_[<?= $no ?>][]">
+                                    </div>
+                                </div>
+                                <img src="" alt="gamabar" id="gmbr_[<?= $no ?>][]">
+                            </div> -->
+                            </div>
+                        </div>
+
+                        <hr>
+                        <!-- DETAIL -->
+                        <?php
+                        $fabrics_curtain = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan,  'item' => 'curtain', 'section' => $no])->result();
+                        $fabrics_lining = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $room->id_quotation, 'item' => 'lining', 'section' => $no])->result();
+                        $fabrics_vitrage = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $room->id_quotation, 'item' => 'vitrage', 'section' => $no])->result();
+                        $accessories = $this->db->get_where('qtt_accessoriess', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $room->id_quotation, 'item' => 'accessoriess'])->result();
+
+                        // echo "<pre>";
+                        // print_r($fabrics_curtain);
+                        // echo "<pre>";
+                        // exit;
+                        ?>
+                        <div class="box box-primary curtain-box<?= $no ?> collapsed-box">
+                            <div class="box-header with-border">
+                                <div class="material-switch curtain-switch<?= $no ?>">
+                                    <input class="switch-curtain" <?= !empty($fabrics_curtain) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-curtain<?= $no ?>" name="switch-curtain" type="checkbox" />
+                                    <label for="switch-curtain<?= $no ?>" data-id="<?= $no ?>" class="label-primary"></label>
+                                    <h3 class="box-title">Curtain</h3>
+                                </div>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-sm btn-info show-hide-btn" data-widget="collapse">Hide</button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="box-curtain<?= $no ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-info lining-box<?= $no ?> collapsed-box">
+                            <div class="box-header with-border">
+                                <div class="material-switch lining-switch<?= $no ?>">
+                                    <input class="switch-lining" <?= !empty($fabrics_lining) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-lining<?= $no ?>" name="switch-lining" type="checkbox" />
+                                    <label for="switch-lining<?= $no ?>" data-id="<?= $no ?>" class="label-info"></label>
+                                    <h3 class="box-title">Lining</h3>
+                                </div>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-sm btn-info show-hide-btn" data-widget="collapse">Hide</button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-lining<?= $no ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-warning vitrage-box<?= $no ?> collapsed-box">
+                            <div class="box-header with-border">
+                                <div class="material-switch vitrage-switch<?= $no ?>">
+                                    <input class="switch-vitrage" <?= !empty($fabrics_vitrage) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-vitrage<?= $no ?>" name="switch-vitrage" type="checkbox" />
+                                    <label for="switch-vitrage<?= $no ?>" data-id="<?= $no ?>" class="label-warning"></label>
+                                    <h3 class="box-title">Vitrage</h3>
+                                </div>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-sm btn-info show-hide-btn" data-widget="collapse">Hide</button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-vitrage<?= $no ?>">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="box box-danger accessories-box<?= $no ?> collapsed-box">
+                            <div class="box-header with-border">
+                                <div class="material-switch accessories-switch<?= $no ?>">
+                                    <input class="switch-accessories" <?= !empty($accessories) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-accessories<?= $no ?>" name="switch-accessories" type="checkbox" />
+                                    <label for="switch-accessories<?= $no ?>" data-id="<?= $no ?>" class="label-danger"></label>
+                                    <h3 class="box-title">Accessories</h3>
+                                </div>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-sm btn-info show-hide-btn" data-widget="collapse">Hide</button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-accessories<?= $no ?>">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+    }
+} else { ?>
+    <div data-item="ruang" data-count="<?= $no ?>">
+        <div class="form-horizontal">
+            <div class="box box-default" style="border-top-color:indigo">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><label> Deskripsi Jendela[<?= $no ?>]</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-sm btn-info" data-widget="collapse" style="margin:0px 5px">Hide</button>
+                        <a href="javascript:void(0)" class="pull-right btn btn-sm btn-danger del_jendela"><i class="fa fa-trash"></i> Delete Jendela</a>
+                    </div>
+                </div>
+                <div class="box-body">
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="ruangan">Ruangan <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="ruangan">Ruangan <span class='text-red'>*</span></label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control required" value="<?= $room != '' ? $room->name_room : '' ?>" id="ruang<?= $no ?>" placeholder="Nama Ruangan" name="ruang[<?= $no ?>][nm_ruang]">
                                     <label class="label label-danger ruang<?= $no ?> hideIt">Ruangan Can't be empty!</label></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="lantai">Lantai <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="lantai">Lantai <span class='text-red'>*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control required" value="<?= $room != '' ? $room->floor : '' ?>" placeholder="Lantai" id="lantai<?= $no ?>" name="ruang[<?= $no ?>][lantai]">
+                                    <input type="text" class="form-control required" placeholder="Lantai" id="lantai<?= $no ?>" name="ruang[<?= $no ?>][lantai]">
                                     <label class="label label-danger lantai<?= $no ?> hideIt">Lantai Can't be empty!</label></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="jendela">Jendela <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="jendela">Jendela <span class='text-red'>*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control required" value="<?= $room != '' ? $room->window : '' ?>" placeholder="Jendela" id="jendela<?= $no ?>" name="ruang[<?= $no ?>][jendela]">
+                                    <input type="text" class="form-control required" placeholder="Jendela" id="jendela<?= $no ?>" name="ruang[<?= $no ?>][jendela]">
                                     <label class="label label-danger jendela<?= $no ?> hideIt">Jendela Can't be empty!</label></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="lebar">Lebar <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="lebar">Lebar <span class='text-red'>*</span></label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="number" min="0" class="form-control required lebar" value="<?= $room != '' ? $room->width_window : '' ?>" data-id="<?= $no ?>" placeholder="0" id="lebar<?= $no ?>" name="ruang[<?= $no ?>][lebar]">
+                                        <input type="number" min="0" class="form-control required lebar" data-id="<?= $no ?>" placeholder="0" id="lebar<?= $no ?>" name="ruang[<?= $no ?>][lebar]">
                                         <span class="input-group-addon">cm</span>
                                     </div>
                                     <label class="label label-danger lebar<?= $no ?> hideIt">Lebar Can't be empty!</label></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="tinggi">Tinggi <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="tinggi">Tinggi <span class='text-red'>*</span></label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="number" min="0" class="form-control required tinggi" value="<?= $room != '' ? $room->height_window : '' ?>" placeholder="0" data-id="<?= $no ?>" id="tinggi<?= $no ?>" name="ruang[<?= $no ?>][tinggi]">
+                                        <input type="number" min="0" class="form-control required tinggi" placeholder="0" data-id="<?= $no ?>" id="tinggi<?= $no ?>" name="ruang[<?= $no ?>][tinggi]">
                                         <span class="input-group-addon">cm</span>
                                     </div>
                                     <label class="label label-danger tinggi<?= $no ?> hideIt">Tinggi Can't be empty!</label></label>
@@ -74,10 +271,10 @@ if (!empty($rooms)) {
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="tinggi">Qty Unit <span class='text-red'>*</span></label>
+                                <label class="col-sm-2" for="tinggi">Qty Unit <span class='text-red'>*</span></label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="number" min="0" class="form-control required qty_unit" value="<?= $room != '' ? $room->qty_unit : '' ?>" placeholder="0" data-id="<?= $no ?>" id="qty_unit<?= $no ?>" name="ruang[<?= $no ?>][qty_unit]">
+                                        <input type="number" min="0" class="form-control required qty_unit" placeholder="0" data-id="<?= $no ?>" id="qty_unit<?= $no ?>" name="ruang[<?= $no ?>][qty_unit]">
                                         <span class="input-group-addon">pcs</span>
                                     </div>
                                     <label class="label label-danger qty_unit<?= $no ?> hideIt">Qty Unit Can't be empty!</label></label>
@@ -85,26 +282,11 @@ if (!empty($rooms)) {
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-sm-2">Installation <span class='text-red'>*</span></label>
+                                <label class="col-sm-2">Installation <span class='text-red'>*</span></label>
                                 <div class="col-md-4">
-                                    <?php
-                                    if ($room->installation == 'yes') {
-                                        $yes = 'checked';
-                                        $No = '';
-                                        $def = '';
-                                    } else if ($room->installation == 'no') {
-                                        $yes = '';
-                                        $No = 'checked';
-                                        $def = '';
-                                    } else {
-                                        $yes = '';
-                                        $No = '';
-                                        $def = 'checked';
-                                    }
-                                    ?>
                                     <div class="input-group">
-                                        <label style="padding-left:20px"><input type="radio" <?= $No ?> class="required" name="ruang[<?= $no ?>][installation]" value="no"><span style="margin-left:5px">No</span></label>
-                                        <label style="margin-left:20px"><input type="radio" <?= $yes ?> class="required" name="ruang[<?= $no ?>][installation]" value="yes"><span style="margin-left:5px">Yes</span></label>
+                                        <label style="padding-left:20px"><input type="radio" class="required" name="ruang[<?= $no ?>][installation]" value="no"><span style="margin-left:5px">No</span></label>
+                                        <label style="margin-left:20px"><input type="radio" checked class="required" name="ruang[<?= $no ?>][installation]" value="yes"><span style="margin-left:5px">Yes</span></label>
                                         <label class="label label-danger ruang[<?= $no ?>][installation] hideIt">Installation Can't be empty!</label>
                                     </div>
                                 </div>
@@ -112,55 +294,44 @@ if (!empty($rooms)) {
                         </div>
                         <div class="col-md-4 col-sm-offset-1">
                             <!-- <div class="form-horizontal">
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <label class="control-label" for="upload">Upload Gambar</label>
-                                        <input type="file" id="upload_<?= $no ?>" name="uplaod_gambar_[<?= $no ?>][]">
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class=" for="upload">Upload Gambar</label>
+                                    <input type="file" id="upload_<?= $no ?>" name="uplaod_gambar_[<?= $no ?>][]">
                                 </div>
-                                <img src="" alt="gamabar" id="gmbr_[<?= $no ?>][]">
-                            </div> -->
+                            </div>
+                            <img src="" alt="gamabar" id="gmbr_[<?= $no ?>][]">
+                        </div> -->
                         </div>
                     </div>
                     <hr>
                     <!-- DETAIL -->
-                    <?php
-                    $fabrics_curtain = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'item' => 'curtain', 'section' => $no])->result();
-                    $fabrics_lining = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'item' => 'lining', 'section' => $no])->result();
-                    $fabrics_vitrage = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'item' => 'vitrage', 'section' => $no])->result();
-                    $accessories = $this->db->get_where('qtt_accessoriess', ['id_ruangan' => $room->id_ruangan, 'item' => 'accessoriess'])->result();
 
-                    // echo "<pre>";
-                    // print_r($accessories);
-                    // echo "</pre>";
-
-                    ?>
                     <div class="box box-primary curtain-box<?= $no ?> collapsed-box">
                         <div class="box-header with-border">
                             <div class="material-switch curtain-switch<?= $no ?>">
-                                <input class="switch-curtain" <?= !empty($fabrics_curtain) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-curtain<?= $no ?>" name="switch-curtain" type="checkbox" />
+                                <input class="switch-curtain" data-id="<?= $no ?>" id="switch-curtain<?= $no ?>" name="switch-curtain" type="checkbox" />
                                 <label for="switch-curtain<?= $no ?>" data-id="<?= $no ?>" class="label-primary"></label>
                                 <h3 class="box-title">Curtain</h3>
                             </div>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-sm btn-info" data-widget="collapse">Hide</i></button>
                             </div>
                         </div>
                         <div class="box-body">
-                            <div class="box-curtain<?= $no ?>">
-                            </div>
+                            <div class="box-curtain<?= $no ?>"></div>
                         </div>
                     </div>
 
                     <div class="box box-info lining-box<?= $no ?> collapsed-box">
                         <div class="box-header with-border">
                             <div class="material-switch lining-switch<?= $no ?>">
-                                <input class="switch-lining" <?= !empty($fabrics_lining) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-lining<?= $no ?>" name="switch-lining" type="checkbox" />
+                                <input class="switch-lining" data-id="<?= $no ?>" id="switch-lining<?= $no ?>" name="switch-lining" type="checkbox" />
                                 <label for="switch-lining<?= $no ?>" data-id="<?= $no ?>" class="label-info"></label>
                                 <h3 class="box-title">Lining</h3>
                             </div>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-sm btn-info" data-widget="collapse">Hide</i></button>
                             </div>
                         </div>
 
@@ -173,12 +344,12 @@ if (!empty($rooms)) {
                     <div class="box box-warning vitrage-box<?= $no ?> collapsed-box">
                         <div class="box-header with-border">
                             <div class="material-switch vitrage-switch<?= $no ?>">
-                                <input class="switch-vitrage" <?= !empty($fabrics_vitrage) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-vitrage<?= $no ?>" name="switch-vitrage" type="checkbox" />
+                                <input class="switch-vitrage" data-id="<?= $no ?>" id="switch-vitrage<?= $no ?>" name="switch-vitrage" type="checkbox" />
                                 <label for="switch-vitrage<?= $no ?>" data-id="<?= $no ?>" class="label-warning"></label>
                                 <h3 class="box-title">Vitrage</h3>
                             </div>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-sm btn-info" data-widget="collapse">Hide</i></button>
                             </div>
                         </div>
 
@@ -193,12 +364,12 @@ if (!empty($rooms)) {
                     <div class="box box-danger accessories-box<?= $no ?> collapsed-box">
                         <div class="box-header with-border">
                             <div class="material-switch accessories-switch<?= $no ?>">
-                                <input class="switch-accessories" <?= !empty($accessories) ? 'checked' : ''  ?> data-id="<?= $no ?>" id="switch-accessories<?= $no ?>" name="switch-accessories" type="checkbox" />
+                                <input class="switch-accessories" data-id="<?= $no ?>" id="switch-accessories<?= $no ?>" name="switch-accessories" type="checkbox" />
                                 <label for="switch-accessories<?= $no ?>" data-id="<?= $no ?>" class="label-danger"></label>
                                 <h3 class="box-title">Accessories</h3>
                             </div>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-sm btn-info" data-widget="collapse">Hide</i></button>
                             </div>
                         </div>
 
@@ -212,191 +383,20 @@ if (!empty($rooms)) {
                 </div>
             </div>
         </div>
-    <?php
-    }
-} else {
-    $getId         = $this->db->query("SELECT max(LEFT(id_quotation,5)) idQ FROM quotation_header ORDER BY id_quotation DESC LIMIT 1")->row();
-    $code = 'PR';
-    $num = $getId->idQ + 1;
-    $nomor = str_pad($num, 5, "0", STR_PAD_LEFT);
-    $new_id = $nomor . '/IDF/' . $code . '/' . date('m') . '/' . date('y');
-
-    $code = 'RM';
-    $urut = str_pad($no, 2, "0", STR_PAD_LEFT);
-    $idNew = $code . $nomor . "-" . $urut;
-
-    ?>
-    <div class="form-horizontal">
-        <div class="box box-solid">
-            <div data-item="ruang" data-count="<?= $no ?>">
-                <div class="box-header">
-                    <legend class="legend"><label> Deskripsi Jendela[<?= $no ?>]</label>
-                        <a href="javascript:void(0)" class="pull-right btn btn-sm btn-danger del_jendela"><i class="fa fa-trash"></i> Delete Jendela</a>
-                    </legend>
-                    <input type="hidden" id="id_ruangan<?= $no ?>" class="form-control required" value="<?= $idNew ?>" name="ruang[<?= $no ?>][id_ruangan]">
-                </div>
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="ruangan">Ruangan <span class='text-red'>*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control required" value="<?= $room != '' ? $room->name_room : '' ?>" id="ruang<?= $no ?>" placeholder="Nama Ruangan" name="ruang[<?= $no ?>][nm_ruang]">
-                                <label class="label label-danger ruang<?= $no ?> hideIt">Ruangan Can't be empty!</label></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="lantai">Lantai <span class='text-red'>*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control required" placeholder="Lantai" id="lantai<?= $no ?>" name="ruang[<?= $no ?>][lantai]">
-                                <label class="label label-danger lantai<?= $no ?> hideIt">Lantai Can't be empty!</label></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="jendela">Jendela <span class='text-red'>*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control required" placeholder="Jendela" id="jendela<?= $no ?>" name="ruang[<?= $no ?>][jendela]">
-                                <label class="label label-danger jendela<?= $no ?> hideIt">Jendela Can't be empty!</label></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="lebar">Lebar <span class='text-red'>*</span></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="number" min="0" class="form-control required lebar" data-id="<?= $no ?>" placeholder="0" id="lebar<?= $no ?>" name="ruang[<?= $no ?>][lebar]">
-                                    <span class="input-group-addon">cm</span>
-                                </div>
-                                <label class="label label-danger lebar<?= $no ?> hideIt">Lebar Can't be empty!</label></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="tinggi">Tinggi <span class='text-red'>*</span></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="number" min="0" class="form-control required tinggi" placeholder="0" data-id="<?= $no ?>" id="tinggi<?= $no ?>" name="ruang[<?= $no ?>][tinggi]">
-                                    <span class="input-group-addon">cm</span>
-                                </div>
-                                <label class="label label-danger tinggi<?= $no ?> hideIt">Tinggi Can't be empty!</label></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="tinggi">Qty Unit <span class='text-red'>*</span></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="number" min="0" class="form-control required qty_unit" placeholder="0" data-id="<?= $no ?>" id="qty_unit<?= $no ?>" name="ruang[<?= $no ?>][qty_unit]">
-                                    <span class="input-group-addon">pcs</span>
-                                </div>
-                                <label class="label label-danger qty_unit<?= $no ?> hideIt">Qty Unit Can't be empty!</label></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">Installation <span class='text-red'>*</span></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <label style="padding-left:20px"><input type="radio" class="required" name="ruang[<?= $no ?>][installation]" value="no"><span style="margin-left:5px">No</span></label>
-                                    <label style="margin-left:20px"><input type="radio" checked class="required" name="ruang[<?= $no ?>][installation]" value="yes"><span style="margin-left:5px">Yes</span></label>
-                                    <label class="label label-danger ruang[<?= $no ?>][installation] hideIt">Installation Can't be empty!</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-offset-1">
-                        <!-- <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <label class="control-label" for="upload">Upload Gambar</label>
-                                    <input type="file" id="upload_<?= $no ?>" name="uplaod_gambar_[<?= $no ?>][]">
-                                </div>
-                            </div>
-                            <img src="" alt="gamabar" id="gmbr_[<?= $no ?>][]">
-                        </div> -->
-                    </div>
-                </div>
-                <hr>
-                <!-- DETAIL -->
-
-                <div class="box box-primary curtain-box<?= $no ?> collapsed-box">
-                    <div class="box-header with-border">
-                        <div class="material-switch curtain-switch<?= $no ?>">
-                            <input class="switch-curtain" data-id="<?= $no ?>" id="switch-curtain<?= $no ?>" name="switch-curtain" type="checkbox" />
-                            <label for="switch-curtain<?= $no ?>" data-id="<?= $no ?>" class="label-primary"></label>
-                            <h3 class="box-title">Curtain</h3>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="box-curtain<?= $no ?>"></div>
-                    </div>
-                </div>
-
-                <div class="box box-info lining-box<?= $no ?> collapsed-box">
-                    <div class="box-header with-border">
-                        <div class="material-switch lining-switch<?= $no ?>">
-                            <input class="switch-lining" data-id="<?= $no ?>" id="switch-lining<?= $no ?>" name="switch-lining" type="checkbox" />
-                            <label for="switch-lining<?= $no ?>" data-id="<?= $no ?>" class="label-info"></label>
-                            <h3 class="box-title">Lining</h3>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="box-lining<?= $no ?>">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="box box-warning vitrage-box<?= $no ?> collapsed-box">
-                    <div class="box-header with-border">
-                        <div class="material-switch vitrage-switch<?= $no ?>">
-                            <input class="switch-vitrage" data-id="<?= $no ?>" id="switch-vitrage<?= $no ?>" name="switch-vitrage" type="checkbox" />
-                            <label for="switch-vitrage<?= $no ?>" data-id="<?= $no ?>" class="label-warning"></label>
-                            <h3 class="box-title">Vitrage</h3>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="box-vitrage<?= $no ?>">
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="box box-danger accessories-box<?= $no ?> collapsed-box">
-                    <div class="box-header with-border">
-                        <div class="material-switch accessories-switch<?= $no ?>">
-                            <input class="switch-accessories" data-id="<?= $no ?>" id="switch-accessories<?= $no ?>" name="switch-accessories" type="checkbox" />
-                            <label for="switch-accessories<?= $no ?>" data-id="<?= $no ?>" class="label-danger"></label>
-                            <h3 class="box-title">Accessories</h3>
-                        </div>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="box-accessories<?= $no ?>">
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 <?php }
 ?>
 
 
 <script>
+    $(document).on('click', '.show-hide-btn', function() {
+        if ($(this).text() == 'Hide') {
+            $(this).text('Show')
+        } else {
+            $(this).text('Hide')
+        }
+    });
+
     $('#dtFee').DataTable({
         "paging": false,
         "searching": false,
@@ -810,6 +810,13 @@ if (!empty($rooms)) {
     // INPUT DISKON FABRIC //
     //=====================//
 
+    function disc_fab(no) {
+        let t_harga_kain = $('#total_harga_kain' + no).val().replace(/,/g, '') || 0;
+        t_disk = (parseInt(t_harga_kain) * (parseInt(disc_fab))) / 100;
+        harga_aft_disc = parseInt(t_harga_kain) - parseInt(t_disk);
+        $('#harga_aft_disc' + no).val(('' + harga_aft_disc).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+    }
+
     $(document).on('keyup paste change', '.disc_fab', function() {
         let no = $(this).data('id');
         let t_harga_kain = $('#total_harga_kain' + no).val().replace(/,/g, '') || 0;
@@ -855,11 +862,13 @@ if (!empty($rooms)) {
     $(document).on('keyup paste change', '.diskon_rail', function() {
         let no = $(this).data('id');
         diskon_rail_curtain(no);
+        total_rail(no);
 
     })
 
     function diskon_rail_curtain(no) {
         let t_price_rail = $('#t_price_rail' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail = $('#subtotal_rail' + no).val().replace(/,/g, '') || 0;
         let diskon_rail = $('#diskon_rail' + no).val() || 0;
 
         let val = countDiscRail(no);
@@ -868,7 +877,7 @@ if (!empty($rooms)) {
             $('#v_diskon_rail' + no).val('0');
         } else {
             // alert('total fee adalah : ');
-            t_disk = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+            t_disk = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
             $('#v_diskon_rail' + no).val(('' + t_disk.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
 
         }
@@ -883,12 +892,12 @@ if (!empty($rooms)) {
         disc = $('.persen_rail').val() || 0;
         id = $('.persen_rail').data("id");
 
-        dis_rail = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+        dis_rail = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail));
+            t_disk = (parseInt(subtotal_rail));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         } else {
-            t_disk = (parseInt(t_price_rail) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail) - (parseInt(dis_rail)));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         }
 
@@ -1010,7 +1019,7 @@ if (!empty($rooms)) {
     $(document).on('change', '.persen_rail', function() {
         let no = $(this).parents('table').data('id');
         let diskon_rail = $('#diskon_rail' + no).val() || 0;
-        let t_price_rail = $('#t_price_rail' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail = $('#subtotal_rail' + no).val().replace(/,/g, '') || 0;
 
         let persen = 0;
         $('.persen_rail').each(function() {
@@ -1021,12 +1030,12 @@ if (!empty($rooms)) {
         disc = $(this).val();
         id = $(this).data("id");
 
-        dis_rail = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+        dis_rail = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail));
+            t_disk = (parseInt(subtotal_rail));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         } else {
-            t_disk = (parseInt(t_price_rail) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail) - (parseInt(dis_rail)));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         }
 
@@ -1043,15 +1052,15 @@ if (!empty($rooms)) {
     $(document).on('change', '.value_rail', function() {
         let no = $(this).parents('table').data('id');
         let diskon_rail = $('#diskon_rail' + no).val() || 0;
-        let t_price_rail = $('#t_price_rail' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail = $('#subtotal_rail' + no).val().replace(/,/g, '') || 0;
         id = $(this).data("id");
         disc = $(this).val().replace(/,/g, '') || 0;
-        dis_rail = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+        dis_rail = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail));
+            t_disk = (parseInt(subtotal_rail));
             val_disc = (parseInt(disc) / parseInt(t_disk)) * 100;
         } else {
-            t_disk = (parseInt(t_price_rail) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail) - (parseInt(dis_rail)));
             val_disc = (parseInt(disc) / parseInt(t_disk)) * 100;
         }
 
@@ -1584,6 +1593,9 @@ if (!empty($rooms)) {
                         overlap_curtain(x);
                         getBasicComponent(id_rail, x);
                         getAdditionalComponent(id_rail, x);
+                        subtotal_rail(x);
+                        diskon_rail_curtain(x);
+                        total_rail(x);
                     },
                     error: function() {
                         alert("Ajax Error..!!")
@@ -1637,32 +1649,32 @@ if (!empty($rooms)) {
             success: function(result) {
                 data = result['list']
                 // console.log(data.length)
-                $('#additional_comp_rail' + x + ' tbody tr').remove();
-                // console.log(result)
-                for (var i = 0; i < data.length; i++) {
-                    table =
-                        '<tr>' +
-                        '<td>' + data[i].name_component +
-                        '<input type="hidden" name="addt_comp[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="number" style="width:100%" name="addt_comp[' + x + '][' + i + '][qty]" data-id="' + data[i].id_rail_add + '" id="qty_' + data[i].id_rail_add + '" class="qty_add_comp form-control numberOnly required text-right" placeholder="0" min="0" max="100">' +
-                        '</td>' +
-                        '<td>' + data[i].uom +
-                        '<input type="hidden" style="width:100%" name="addt_comp[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" id="uom_' + data[i].id_rail_add + '" class="form-control text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
-                        '<input type="hidden" style="width:100%" name="addt_comp[' + x + '][' + i + '][price]" value="' + data[i].selling_price + '"  id="price_' + data[i].id_rail_add + '" class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="text" readonly style="width:100%" name="addt_comp[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '" class="form-control text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
-                        '</td>' +
-                        '</tr>';
-                    $('#additional_comp_rail' + x + ' tbody').append(table);
-                };
+                // $('#additional_comp_rail' + x + ' tbody tr').remove();
+                // // console.log(result)
+                // for (var i = 0; i < data.length; i++) {
+                //     table =
+                //         '<tr>' +
+                //         '<td>' + data[i].name_component +
+                //         '<input type="hidden" name="addt_comp[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="number" style="width:100%" name="addt_comp[' + x + '][' + i + '][qty]" data-id="' + data[i].id_rail_add + '" id="qty_' + data[i].id_rail_add + '" class="qty_add_comp form-control numberOnly required text-right" placeholder="0" min="0" max="100">' +
+                //         '</td>' +
+                //         '<td>' + data[i].uom +
+                //         '<input type="hidden" style="width:100%" name="addt_comp[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" id="uom_' + data[i].id_rail_add + '" class="form-control text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
+                //         '<input type="hidden" style="width:100%" name="addt_comp[' + x + '][' + i + '][price]" value="' + data[i].selling_price + '"  id="price_' + data[i].id_rail_add + '" class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="text" readonly style="width:100%" name="addt_comp[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '" class="form-control text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
+                //         '</td>' +
+                //         '</tr>';
+                //     $('#additional_comp_rail' + x + ' tbody').append(table);
+                // };
             }
         })
     }
@@ -1672,11 +1684,18 @@ if (!empty($rooms)) {
         let no = $(this).parents('table').data('id');
         let qty = parseInt($(this).val());
         let price = parseInt($('#price_' + id).val().replace(/'/g, '') || 0);
-        // console.log(id)
-        // console.log(qty * price);
+
         let t_price = qty * price;
         $('table#additional_comp_rail' + no).find('input#t_price_' + id).val(('' + t_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
 
+        var total_add_comp = 0;
+        $('.t_price_add_comp').each(function() {
+            total_add_comp += Number($(this).val().replace(/,/g, '') || 0);
+        })
+        $('#total_add_comp_rail' + no).val(('' + total_add_comp).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+        subtotal_rail(no);
+        diskon_rail_curtain(no);
+        total_rail(no);
     })
 
 
@@ -1733,11 +1752,12 @@ if (!empty($rooms)) {
 
     // QTY UNIT CHANGE //
     //=====================//
-    $(document).on('change keyup paste', '.tinggi,.qty_unit', function() {
+    $(document).on('change keyup paste', '.tinggi,.qty_unit,.vertikal_repeat', function() {
         var no = $(this).data('id');
         total_kain(no);
         total_kain_lining(no);
         total_kain_vitrage(no);
+        disc_fab(no);
     })
 
     $(document).on('change keyup paste', '.r_up_panel', function() {
@@ -1749,6 +1769,7 @@ if (!empty($rooms)) {
             return false;
         } else {
             total_kain(no);
+            disc_fab(no);
         }
     })
 
@@ -1783,17 +1804,18 @@ if (!empty($rooms)) {
         ovlTengah = $('#ovl_tengah' + no).val() || 0;
         jh = $('#jahit_h' + no).val() || 0;
         jv = $('#jahit_v' + no).val() || 0;
+        vr = $('#vertikal_repeat' + no).val() || 0;
         fullness = $('#fullness' + no).val() || 0;
         tinggi = $('#tinggi' + no).val() || 0;
         roundUp = $('#r_up_panel' + no).val() || 0;
         qty_unit = $('#qty_unit' + no).val() || 0;
         if (type == 'panel') {
-            let total_kain = (parseInt(roundUp) * ((parseInt(tinggi) + parseInt(jv)) / 100) * parseInt(qty_unit));
-            // $('#t_kain' + no).val(total_kain);
-            // console.log(roundUp + "," + tinggi + "," + jv + "," + total_kain.toFixed(1))
-            $('#t_kain' + no).val(total_kain.toFixed(1));
+            console.log(roundUp + "," + tinggi + "," + jv + "," + vr + "," + vr);
+            // let total_kain = (parseInt(roundUp) * ((parseInt(tinggi) + parseInt(jv)) / 100) * parseInt(qty_unit));
+            let total_kain = (parseInt(roundUp) * (Math.ceil((parseInt(tinggi) + parseInt(jv)) / parseFloat(vr)) * (parseFloat(vr) / 100)) * parseInt(qty_unit));
+            $('#t_kain' + no).val(total_kain.toFixed(2));
             let t_harga_kain = $('#t_harga_kain' + no).val().replace(/,/g, '') || 0;
-            total_harga_kain = total_kain.toFixed(1) * parseInt(t_harga_kain);
+            total_harga_kain = total_kain.toFixed(2) * parseFloat(t_harga_kain);
             // console.log(total_harga_kain);
             $('#total_harga_kain' + no).val(('' + total_harga_kain).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         } else {
@@ -2205,7 +2227,7 @@ if (!empty($rooms)) {
                                 '<input type="hidden" style="width:100%" name="addt_comp[' + x + '][' + i + '][price]" id="price_' + data[list_arr[i]].id_rail_add + '" value="' + data[list_arr[i]].selling_price + '" class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
                                 '</td>' +
                                 '<td>' +
-                                '<input type="text" readonly style="width:100%" name="addt_comp[' + x + '][' + i + '][t_price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control required text-right" placeholder="0">' +
+                                '<input type="text" readonly style="width:100%" name="addt_comp[' + x + '][' + i + '][t_price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control required text-right t_price_add_comp" placeholder="0">' +
                                 '</td>' +
                                 '<td>' +
                                 '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
@@ -2237,10 +2259,10 @@ if (!empty($rooms)) {
                                 '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][uom]" value="' + data[list_arr[i]].uom + '" class="form-control text-right" placeholder="0">' +
                                 '</td>' +
                                 '<td>' + ('' + data[list_arr[i]].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
-                                '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][price]" id="price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right" placeholder="0">' +
+                                '<input type="hidden" style="width:100%" value="' + data[list_arr[i]].selling_price + '" name="addt_comp-lining[' + x + '][' + i + '][price]" id="price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right" placeholder="0">' +
                                 '</td>' +
-                                '<td>' + ('' + data[list_arr[i]].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
-                                '<input type="text" readonly style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right" placeholder="0">' +
+                                '<td>' +
+                                '<input type="text" readonly style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right t_price_add_comp-lining" placeholder="0">' +
                                 '</td>' +
                                 '<td>' +
                                 '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
@@ -2275,7 +2297,7 @@ if (!empty($rooms)) {
                                 '<input type="hidden" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][price]" id="price_' + data[list_arr[i]].id_rail_add + '" value="' + data[list_arr[i]].selling_price + '" class="form-control numberOnly nominal value text-right" placeholder="0">' +
                                 '</td>' +
                                 '<td>' +
-                                '<input type="text" readonly style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][t_price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right" placeholder="0">' +
+                                '<input type="text" readonly style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][t_price]" id="t_price_' + data[list_arr[i]].id_rail_add + '" class="form-control text-right t_price_add_comp-vitrage" placeholder="0">' +
                                 '</td>' +
                                 '<td>' +
                                 '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
@@ -2569,16 +2591,15 @@ if (!empty($rooms)) {
         ovlTengah = $('#ovl_tengah-vitrage' + no).val() || 0;
         jh = $('#jahit_h-vitrage' + no).val() || 0;
         jv = $('#jahit_v-vitrage' + no).val() || 0;
+        vr = $('#vertikal_repeat-vitrage' + no).val() || 0;
         fullness = $('#fullness-vitrage' + no).val() || 0;
         roundUp = $('#r_up_panel-vitrage' + no).val() || 0;
 
         if (type == 'panel') {
-            let total_kain = (parseInt(roundUp) * ((parseInt(tinggi) + parseInt(jv)) / 100) * parseInt(qty_unit));
-            // $('#t_kain' + no).val(total_kain);
-            // console.log(roundUp + "," + tinggi + "," + jv + "," + total_kain.toFixed(1))
-            $('#t_kain-vitrage' + no).val(total_kain.toFixed(1));
+            let total_kain = (parseInt(roundUp) * (Math.ceil((parseInt(tinggi) + parseInt(jv)) / parseFloat(vr)) * (parseFloat(vr) / 100)) * parseInt(qty_unit));
+            $('#t_kain-vitrage' + no).val(total_kain.toFixed(2));
             let t_harga_kain = $('#t_harga_kain-vitrage' + no).val().replace(/,/g, '') || 0;
-            total_harga_kain = total_kain.toFixed(1) * parseInt(t_harga_kain);
+            total_harga_kain = total_kain.toFixed(2) * parseInt(t_harga_kain);
             $('#total_harga_kain-vitrage' + no).val(('' + total_harga_kain).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         } else {
             jmlKain = (((parseInt(lebar) + parseInt(ovlKiri) + parseInt(ovlTengah) + parseInt(jh)) * (parseInt(fullness) / 100)) / 100) * (parseInt(qty_unit));
@@ -2956,6 +2977,9 @@ if (!empty($rooms)) {
 
                         getBasicComponentVitrage(id_rail, x);
                         getAdditionalComponentVitrage(id_rail, x);
+                        subtotal_rail_vitrage(x);
+                        diskon_rail_vitrage(x);
+                        total_rail_vitrage(x);
                     },
                     error: function() {
                         alert("Ajax Error..!!")
@@ -3010,31 +3034,31 @@ if (!empty($rooms)) {
             success: function(result) {
                 data = result['list']
                 // console.log(data.length)
-                $('#additional_comp_rail-vitrage' + x + ' tbody tr').remove();
-                for (var i = 0; i < data.length; i++) {
-                    table =
-                        '<tr>' +
-                        '<td>' + data[i].name_component +
-                        '<input type="hidden" name="addt_comp-vitrage[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="number" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][qty]" id="qty_' + data[i].id_rail_add + '"  data-id="' + data[i].id_rail_add + '" class="qty_add_comp-vitrage form-control required input-sm text-right" placeholder="0" maxLength="3" min="0" max="100">' +
-                        '</td>' +
-                        '<td>' + data[i].uom +
-                        '<input type="hidden" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" class="form-control text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
-                        '<input type="hidden" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][price]" id="price_' + data[i].id_rail_add + '"  value="' + data[i].selling_price + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="text" readonly style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '"  class="form-control text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
-                        '</td>' +
-                        '</tr>';
-                    $('#additional_comp_rail-vitrage' + x + ' tbody').append(table);
-                };
+                // $('#additional_comp_rail-vitrage' + x + ' tbody tr').remove();
+                // for (var i = 0; i < data.length; i++) {
+                //     table =
+                //         '<tr>' +
+                //         '<td>' + data[i].name_component +
+                //         '<input type="hidden" name="addt_comp-vitrage[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="number" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][qty]" id="qty_' + data[i].id_rail_add + '"  data-id="' + data[i].id_rail_add + '" class="qty_add_comp-vitrage form-control required input-sm text-right" placeholder="0" maxLength="3" min="0" max="100">' +
+                //         '</td>' +
+                //         '<td>' + data[i].uom +
+                //         '<input type="hidden" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" class="form-control text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
+                //         '<input type="hidden" style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][price]" id="price_' + data[i].id_rail_add + '"  value="' + data[i].selling_price + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="text" readonly style="width:100%" name="addt_comp-vitrage[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '"  class="form-control text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
+                //         '</td>' +
+                //         '</tr>';
+                //     $('#additional_comp_rail-vitrage' + x + ' tbody').append(table);
+                // };
             }
         })
     }
@@ -3044,9 +3068,19 @@ if (!empty($rooms)) {
         let no = $(this).parents('table').data('id');
         let qty = parseInt($(this).val());
         let price = parseInt($('#price_' + id).val().replace(/'/g, '') || 0);
+
         let t_price = qty * price;
         $('table#additional_comp_rail-vitrage' + no).find('input#t_price_' + id).val(('' + t_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         // console.log(t_price)
+        var total_add_comp = 0;
+        $('.t_price_add_comp-vitrage').each(function() {
+            total_add_comp += Number($(this).val().replace(/,/g, '') || 0);
+        })
+        $('#total_add_comp_rail-vitrage' + no).val(('' + total_add_comp).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+        subtotal_rail_vitrage(no);
+        diskon_rail_vitrage(no);
+        total_rail_vitrage(no);
+
     })
 
 
@@ -3078,17 +3112,20 @@ if (!empty($rooms)) {
     $(document).on('keyup paste change', '.diskon_rail-vitrage', function() {
         let no = $(this).data('id');
         diskon_rail_vitrage(no);
+        total_rail_vitrage(no);
     })
 
     function diskon_rail_vitrage(no) {
         let t_price_rail = $('#t_price_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail = $('#subtotal_rail-vitrage' + no).val().replace(/,/g, '') || 0;
         let diskon_rail = $('#diskon_rail-vitrage' + no).val() || 0;
+
         let val = countDiscRailVitrage(no);
         if (val == false) {
             $('#diskon_rail-vitrage' + no).val('0');
             $('#v_diskon_rail-vitrage' + no).val('0');
         } else {
-            t_disk = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+            t_disk = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
             $('#v_diskon_rail-vitrage' + no).val(('' + t_disk.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         }
 
@@ -3101,12 +3138,12 @@ if (!empty($rooms)) {
         disc = $('.persen_rail-vitrage').val() || 0;
         id = $('.persen_rail-vitrage').data("id");
 
-        dis_rail = (parseInt(t_price_rail) * (parseInt(diskon_rail))) / 100;
+        dis_rail = (parseInt(subtotal_rail) * (parseInt(diskon_rail))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail));
+            t_disk = (parseInt(subtotal_rail));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         } else {
-            t_disk = (parseInt(t_price_rail) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail) - (parseInt(dis_rail)));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         }
 
@@ -3400,15 +3437,16 @@ if (!empty($rooms)) {
         ovlTengah = $('#ovl_tengah-lining' + no).val() || 0;
         jh = $('#jahit_h-lining' + no).val() || 0;
         jv = $('#jahit_v-lining' + no).val() || 0;
+        vr = $('#vertikal_repeat-lining' + no).val() || 0;
         fullness = $('#fullness-lining' + no).val() || 0;
         roundUp = $('#r_up_panel-lining' + no).val() || 0;
         // console.log(type)
         if (type == 'panel') {
-            let total_kain = (parseInt(roundUp) * ((parseInt(tinggi) + parseInt(jv)) / 100) * parseInt(qty_unit));
-
-            $('#t_kain-lining' + no).val(total_kain.toFixed(1));
+            // let total_kain = (parseInt(roundUp) * ((parseInt(tinggi) + parseInt(jv)) / 100) * parseInt(qty_unit));
+            let total_kain = (parseInt(roundUp) * (Math.ceil((parseInt(tinggi) + parseInt(jv)) / parseFloat(vr)) * (parseFloat(vr) / 100)) * parseInt(qty_unit));
+            $('#t_kain-lining' + no).val(total_kain.toFixed(2));
             let t_harga_kain = $('#t_harga_kain-lining' + no).val().replace(/,/g, '') || 0;
-            total_harga_kain = total_kain.toFixed(1) * parseInt(t_harga_kain);
+            total_harga_kain = total_kain.toFixed(2) * parseInt(t_harga_kain);
 
             $('#total_harga_kain-lining' + no).val(('' + total_harga_kain).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         } else {
@@ -3736,6 +3774,9 @@ if (!empty($rooms)) {
 
                         getBasicComponentLining(id_rail, x);
                         getAdditionalComponentLining(id_rail, x);
+                        subtotal_rail_lining(x);
+                        diskon_rail_lining(x);
+                        total_rail_lining(x);
                     },
                     error: function() {
                         alert("Ajax Error..!!")
@@ -3790,31 +3831,31 @@ if (!empty($rooms)) {
             success: function(result) {
                 data = result['list']
                 // console.log(data.length)
-                $('#additional_comp_rail-lining' + x + ' tbody tr').remove();
-                for (var i = 0; i < data.length; i++) {
-                    table =
-                        '<tr>' +
-                        '<td>' + data[i].name_component +
-                        '<input type="hidden" name="addt_comp-lining[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="number" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][qty]" id="qty_' + data[i].id_rail_add + '" data-id="' + data[i].id_rail_add + '" class="qty_add_comp-lining form-control input-sm required text-right" placeholder="0" maxLength="3" min="0" max="100">' +
-                        '</td>' +
-                        '<td>' + data[i].uom +
-                        '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" class="form-control text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
-                        '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][price]" id="price_' + data[i].id_rail_add + '" value="' + data[i].selling_price + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="text" readonly style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
-                        '</td>' +
-                        '<td>' +
-                        '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
-                        '</td>' +
-                        '</tr>';
-                    $('#additional_comp_rail-lining' + x + ' tbody').append(table);
-                };
+                // $('#additional_comp_rail-lining' + x + ' tbody tr').remove();
+                // for (var i = 0; i < data.length; i++) {
+                //     table =
+                //         '<tr>' +
+                //         '<td>' + data[i].name_component +
+                //         '<input type="hidden" name="addt_comp-lining[' + x + '][' + i + '][id_comp]" data-id="' + data[i].id_rail_add + '" value="' + data[i].id_rail_add + '" >' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="number" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][qty]" id="qty_' + data[i].id_rail_add + '" data-id="' + data[i].id_rail_add + '" class="qty_add_comp-lining form-control input-sm required text-right" placeholder="0" maxLength="3" min="0" max="100">' +
+                //         '</td>' +
+                //         '<td>' + data[i].uom +
+                //         '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][uom]" value="' + data[i].uom + '" class="form-control text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' + ('' + data[i].selling_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') +
+                //         '<input type="hidden" style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][price]" id="price_' + data[i].id_rail_add + '" value="' + data[i].selling_price + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<input type="text" readonly style="width:100%" name="addt_comp-lining[' + x + '][' + i + '][t_price]" id="t_price_' + data[i].id_rail_add + '"  class="form-control input-sm numberOnly nominal value text-right" placeholder="0">' +
+                //         '</td>' +
+                //         '<td>' +
+                //         '<a class="text-red hapus" href="javascript:void(0)" title="Hapus Item"><i class="fa fa-times"></i></a><span class="numbering"></span>' +
+                //         '</td>' +
+                //         '</tr>';
+                //     $('#additional_comp_rail-lining' + x + ' tbody').append(table);
+                // };
             }
         })
     }
@@ -3827,10 +3868,15 @@ if (!empty($rooms)) {
         let t_price = qty * price;
         $('table#additional_comp_rail-lining' + no).find('input#t_price_' + id).val(('' + t_price).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         // console.log(t_price)
+        var total_add_comp = 0;
+        $('.t_price_add_comp-lining').each(function() {
+            total_add_comp += Number($(this).val().replace(/,/g, '') || 0);
+        })
+        $('#total_add_comp_rail-lining' + no).val(('' + total_add_comp).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+        subtotal_rail_lining(no);
+        diskon_rail_lining(no);
+        total_rail_lining(no);
     })
-
-
-
 
     function countDiscRailLining(no) {
         let disk = $(disc_cat).val();
@@ -3857,17 +3903,20 @@ if (!empty($rooms)) {
     $(document).on('keyup paste change', '.diskon_rail-lining', function() {
         let no = $(this).data('id');
         diskon_rail_lining(no);
+        total_rail_lining(no);
     })
 
     function diskon_rail_lining(no) {
         let t_price_rail = $('#t_price_rail-lining' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail = $('#subtotal_rail-lining' + no).val().replace(/,/g, '') || 0;
         let diskon_rail_lining = $('#diskon_rail-lining' + no).val() || 0;
+
         let val = countDiscRailLining(no);
         if (val == false) {
             $('#diskon_rail-lining' + no).val('0');
             $('#v_diskon_rail-lining' + no).val('0');
         } else {
-            t_disk = (parseInt(t_price_rail) * (parseInt(diskon_rail_lining))) / 100;
+            t_disk = (parseInt(subtotal_rail) * (parseInt(diskon_rail_lining))) / 100;
             $('#v_diskon_rail-lining' + no).val(('' + t_disk.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
         }
 
@@ -3881,12 +3930,12 @@ if (!empty($rooms)) {
         disc = $('.persen_rail-lining').val() || 0;
         id = $('.persen_rail-lining').data("id");
 
-        dis_rail = (parseInt(t_price_rail) * (parseInt(diskon_rail_lining))) / 100;
+        dis_rail = (parseInt(subtotal_rail) * (parseInt(diskon_rail_lining))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail));
+            t_disk = (parseInt(subtotal_rail));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         } else {
-            t_disk = (parseInt(t_price_rail) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail) - (parseInt(dis_rail)));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         }
 
@@ -3902,7 +3951,7 @@ if (!empty($rooms)) {
     $(document).on('change', '.persen_rail-lining', function() {
         let no = $(this).parents('table').data('id');
         let disc_rail_lining = $('#diskon_rail-lining' + no).val() || 0;
-        let t_price_rail_lining = $('#t_price_rail-lining' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail_lining = $('#subtotal_rail-lining' + no).val().replace(/,/g, '') || 0;
 
         let persen = 0;
         $('.persen_rail-lining').each(function() {
@@ -3914,16 +3963,16 @@ if (!empty($rooms)) {
         disc = $(this).val() || 0;
         id = $(this).data("id");
 
-        dis_lining = (parseInt(t_price_rail_lining) * (parseInt(disc_rail_lining))) / 100;
+        dis_lining = (parseInt(subtotal_rail_lining) * (parseInt(disc_rail_lining))) / 100;
         if (dis_lining == '') {
-            t_disk = (parseInt(t_price_rail_lining));
+            t_disk = (parseInt(subtotal_rail_lining));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         } else {
-            t_disk = (parseInt(t_price_rail_lining) - (parseInt(dis_lining)));
+            t_disk = (parseInt(subtotal_rail_lining) - (parseInt(dis_lining)));
             val_disc = (parseInt(t_disk) * parseInt(disc) / 100);
         }
 
-        // console.log(t_price_rail_lining + "," + dis_lining + "," + val_disc + "," + t_disk)
+        // console.log(subtotal_rail_lining + "," + dis_lining + "," + val_disc + "," + t_disk)
 
         let val = countDiscRailLining(no);
         if (val == false) {
@@ -3938,17 +3987,17 @@ if (!empty($rooms)) {
     $(document).on('change', '.value_rail-lining', function() {
         let no = $(this).parents('table').data('id');
         let disc_rail_lining = $('#diskon_rail-lining' + no).val() || 0;
-        let t_price_rail_lining = $('#t_price_rail-lining' + no).val().replace(/,/g, '') || 0;
+        let subtotal_rail_lining = $('#subtotal_rail-lining' + no).val().replace(/,/g, '') || 0;
         id = $(this).data("id");
 
         disc = $(this).val().replace(/,/g, '');
 
-        dis_rail = (parseInt(t_price_rail_lining) * (parseInt(disc_rail_lining))) / 100;
+        dis_rail = (parseInt(subtotal_rail_lining) * (parseInt(disc_rail_lining))) / 100;
         if (dis_rail == '') {
-            t_disk = (parseInt(t_price_rail_lining));
+            t_disk = (parseInt(subtotal_rail_lining));
             val_disc = (parseInt(disc) / parseInt(t_disk)) * 100;
         } else {
-            t_disk = (parseInt(t_price_rail_lining) - (parseInt(dis_rail)));
+            t_disk = (parseInt(subtotal_rail_lining) - (parseInt(dis_rail)));
             val_disc = (parseInt(disc) / parseInt(t_disk)) * 100;
         }
 

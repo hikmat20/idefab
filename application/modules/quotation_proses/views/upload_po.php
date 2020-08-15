@@ -18,8 +18,9 @@
                 <td width="30%">
                   <label>Quotation Number</label>
                 </td>
-                <td>: <?= $data->id_quotation ?></td>
-                <input type="hidden" name="id_quotation" value="<?= $data->id_quotation ?>">
+                <td>: <?= $data->nomor ?></td>
+                <input type="hidden" name="nomor" value="<?= $data->nomor ?>">
+                <input type="hidden" name="id_quotation" value="<?= $data->id ?>">
               </tr>
               <tr>
                 <td>

@@ -12,8 +12,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 
 <div class="col-md-6" id="type<?= $no ?>" data-type="nonpanel">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<select class="form-control required select2" name="product_curtain[<?= $no ?>][bukaan]" id="bukaan<?= $no ?>">
 					<option value="" <?= $dataPanel->bukaan = '' ? 'selected' : '' ?>></option>
@@ -26,8 +26,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_kiri<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_kiri<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" value="<?= $dataPanel->ovl_kiri != '' ? $dataPanel->ovl_kiri : '' ?>" class="form-control required ovl_kiri" data-id="<?= $no ?>" placeholder="0" name="product_curtain[<?= $no ?>][ovl_kiri]" id="ovl_kiri<?= $no ?>">
@@ -39,8 +39,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_tengah<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_tengah<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" value="<?= $dataPanel->ovl_tengah != '' ? $dataPanel->ovl_tengah : '' ?>" class="form-control required ovl_tengah" data-id="<?= $no ?>" placeholder="0" name="product_curtain[<?= $no ?>][ovl_tengah]" id="ovl_tengah<?= $no ?>">
@@ -52,21 +52,21 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="jahit_h<?= $no ?>">Jahit Horizontal <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="jahit_h<?= $no ?>">Jahit Kanan-Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" value="<?= $dataPanel->jahit_h != '' ? $dataPanel->jahit_h : '' ?>" class="form-control required jahit_h" data-id="<?= $no ?>" placeholder="0" name="product_curtain[<?= $no ?>][jahit_h]" id="jahit_h<?= $no ?>">
 					<div class="input-group-addon">cm</div>
 				</div>
-				<label class="label label-danger jahit_h<?= $no ?> hideIt">Jahit Horizontal Can't be empty!</label>
+				<label class="label label-danger jahit_h<?= $no ?> hideIt">Jahit Kanan-Kiri Can't be empty!</label>
 			</strong>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="fullness<?= $no ?>">Fullness <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="fullness<?= $no ?>">Fullness <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" value="<?= $dataPanel->fullness != '' ? $dataPanel->fullness : '' ?>" class="form-control required fullness" placeholder="0" data-id="<?= $no ?>" name="product_curtain[<?= $no ?>][fullness]" id="fullness<?= $no ?>">
@@ -78,8 +78,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<!-- <div class="form-group">
-		<label class="control-label col-sm-3" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control required text-right qty_unit" data-id="<?= $no ?>" placeholder="0" min="0" name="product_curtain[<?= $no ?>][qty_unit]" id="qty_unit<?= $no ?>">
@@ -91,8 +91,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div> -->
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="t_kain<?= $no ?>">Total Kain </label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="t_kain<?= $no ?>">Total Kain </label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="text" value="<?= $dataPanel->t_kain != '' ? $dataPanel->t_kain : '' ?>" readonly class="form-control" placeholder="0" name="product_curtain[<?= $no ?>][t_kain]" id="t_kain<?= $no ?>">
@@ -109,8 +109,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 <div class="col-md-6">
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="disc_fab<?= $no ?>">Diskon Fabric</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="disc_fab<?= $no ?>">Diskon Fabric</label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control disc_fab" value="<?= $dataPanel->disc_persen ? $dataPanel->disc_persen : '' ?>" placeholder="0" min="0" data-id="<?= $no ?>" name="product_curtain[<?= $no ?>][disc_fab]" id="disc_fab<?= $no ?>">
@@ -125,8 +125,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<span class="input-group-addon">Rp.</span>
@@ -140,8 +140,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="mainten<?= $no ?>">Maintenance <span class="text-red">*</span></label>
-		<div class="col-md-3 col-sm-3">
+		<label class="col-sm-4" for="mainten<?= $no ?>">Maintenance <span class="text-red">*</span></label>
+		<div class="col-md-8 col-sm-3">
 			<strong>
 				<label class="label label-danger mainten<?= $no ?> hideIt">Keterangan Can't be empty!</label>
 			</strong>
@@ -162,8 +162,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="curtain_roll<?= $no ?>">Curtain Roll <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="curtain_roll<?= $no ?>">Curtain Roll <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<table width="100%" data-id="<?= $no ?>" id="dtBook<?= $no ?>" class="dtBook table-bordered table-condensed table-striped">
 				<thead>
 					<tr>
@@ -213,8 +213,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ComCurtain<?= $no ?>">External Commission</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ComCurtain<?= $no ?>">External Commission</label>
+		<div class="col-md-8">
 			<!--<input type="text" class="form-control required" name="product_curtain[<?= $no ?>][ex_comm]" id="ex_comm<?= $no ?>">
 			<label class="label label-danger ex_comm<?= $no ?> hideIt">External Commission Can't be empty!</label>
 		-->
@@ -262,8 +262,8 @@ $dataPanel = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $id_rua
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket<?= $no ?>">Keterangan</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ket<?= $no ?>">Keterangan</label>
+		<div class="col-md-8">
 			<strong>
 				<textarea type="text" class="form-control" placeholder="Keterangan" name="product_curtain[<?= $no ?>][ket]" id="ket<?= $no ?>"><?= $dataPanel->keterangan ? $dataPanel->keterangan : '' ?></textarea>
 				<label class="label label-danger ket<?= $no ?> hideIt">Keterangan Can't be empty!</label>

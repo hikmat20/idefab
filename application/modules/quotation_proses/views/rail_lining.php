@@ -1,6 +1,6 @@
 <div class="col-md-6">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rail_material-lining<?= $no ?>">Rail Material</label>
+		<label class="col-sm-4" for="rail_material-lining<?= $no ?>">Rail Material</label>
 		<div class="col-md-7">
 			<strong>
 				<select class="form-control required select2 rail_material-lining" data-id="<?= $no ?>" name="product_lining[<?= $no ?>][rail_material]" id="rail_material-lining<?= $no ?>">
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="cust_rail_name-lining<?= $no ?>">Customer Product Name</label>
+		<label class="col-sm-4" for="cust_rail_name-lining<?= $no ?>">Customer Product Name</label>
 		<div class="col-md-7">
 			<strong>
 				<input class="form-control cust_rail_name-lining" value="<?= $fabrics_lining->cust_rail_name ? $fabrics_lining->cust_rail_name : '' ?>" name="product_lining[<?= $no ?>][cust_rail_name]" id="cust_rail_name-lining<?= $no ?>">
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="Width<?= $no ?>">Window Width</label>
+		<label class="col-sm-4" for="Width<?= $no ?>">Window Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="overlap-lining<?= $no ?>">Overlap</label>
+		<label class="col-sm-4" for="overlap-lining<?= $no ?>">Overlap</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -50,7 +50,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="width-lining<?= $no ?>">Rail Width</label>
+		<label class="col-sm-4" for="width-lining<?= $no ?>">Rail Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -63,7 +63,7 @@
 
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="price_rail-lining<?= $no ?>">Price</label>
+		<label class="col-sm-4" for="price_rail-lining<?= $no ?>">Price</label>
 		<div class="col-md-7">
 			<strong>
 				<input type="hidden" min="0" value="<?= $fabrics_lining->price ? $fabrics_lining->price : '' ?>" readonly class="form-control text-right" placeholder="0" name="product_lining[<?= $no ?>][price_rail]" id="price_rail-lining<?= $no ?>">
@@ -73,7 +73,16 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="diskon_rail-lining<?= $no ?>">Total Diskon</label>
+		<label class="col-sm-4" for="subtotal_rail-lining<?= $no ?>">Subtotal</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" readonly value="<?= $fabrics_lining->diskon_rail != '' ? $fabrics_lining->diskon_rail : '' ?>" class="form-control required text-right subtotal_rail-lining" placeholder="0" name="product_lining[<?= $no ?>][subtotal_rail]" data-id="<?= $no ?>" id="subtotal_rail-lining<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="diskon_rail-lining<?= $no ?>">Diskon</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -87,7 +96,16 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket_rail-lining<?= $no ?>">Keterangan</label>
+		<label class="col-sm-4" for="total_rail-lining<?= $no ?>">Total</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" readonly value="<?= $fabrics_lining->total_rail != '' ? $fabrics_lining->total_rail : '' ?>" class="form-control required text-right total_rail-lining" placeholder="0" name="product_lining[<?= $no ?>][total_rail]" data-id="<?= $no ?>" id="total_rail-lining<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="ket_rail-lining<?= $no ?>">Keterangan</label>
 		<div class="col-md-7">
 			<strong>
 				<textarea type="text" min="0" class="form-control" placeholder="Keterangan" name="product_lining[<?= $no ?>][ket_rail]" id="ket_rail-lining<?= $no ?>"><?= $fabrics_lining->keterangan != '' ? $fabrics_lining->keterangan : '' ?></textarea>
@@ -100,7 +118,7 @@
 <div class="col-md-6">
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="basic_commponen<?= $no ?>">Basic Component</label>
+		<label class="col-sm-4" for="basic_commponen<?= $no ?>">Basic Component</label>
 		<div class="col-md-8">
 			<strong>
 
@@ -159,7 +177,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="additional_comp_rail-lining<?= $no ?>">Additional Compoenent</label>
+		<label class="col-sm-4" for="additional_comp_rail-lining<?= $no ?>">Additional Compoenent</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered additional_comp_rail-lining" id="additional_comp_rail-lining<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -208,6 +226,15 @@
 						<?php
 						} ?>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" class="text-right">Total</td>
+							<td colspan="">
+								<input type="text" name="product_lining[<?= $no ?>][total_add_comp_rail]" id="total_add_comp_rail-lining<?= $no ?>" class="form-control text-right" placeholder="0" readonly>
+							</td>
+							<td></td>
+						</tr>
+					</tfoot>
 				</table>
 				<button type="button" class="btn btn-sm btn-primary addData" data-type="additionalComp" data-product="lining" data-id="<?= $no ?>">Add Component</button>
 			</strong>
@@ -215,7 +242,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ex_comm_rail-lining<?= $no ?>">External Commission</label>
+		<label class="col-sm-4" for="ex_comm_rail-lining<?= $no ?>">External Commission</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered extComm_rail-lining" id="extComm_rail-lining<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -230,10 +257,6 @@
 					<tbody>
 						<?php
 						$exCOmm = $this->db->get_where('qtt_ext_commission', ['id_quotation' => $fabrics_lining->id_quotation, 'item' => 'rail-lining', 'section' => $no])->result();
-						// echo "<pre>";
-						// print_r($exCOmm);
-						// echo "<pre>";
-						// exit;
 						if ($exCOmm) {
 							foreach ($exCOmm as $cm => $comm) {
 								$this->db->select('a.*,b.name_pic');
@@ -271,21 +294,38 @@
 <script>
 	$(document).on('change', '.overlap-lining', function() {
 		no = $(this).data('id');
-		overlap_lining(no);
-		diskon_rail_lining(no);
 		id_rail = $('#rail_material-lining' + no).val();
-		getBasicComponentLining(id_rail, no)
+		overlap_lining(no);
+		getBasicComponentLining(id_rail, no);
+		subtotal_rail_lining(no);
+		diskon_rail_lining(no);
+		total_rail_lining(no);
 	})
 
 	function overlap_lining(no) {
 		overlap = $('#overlap-lining' + no).val() || 0;
+		qty = $('#qty_unit' + no).val() || 0;
 		window_width = $('#window_width-lining' + no).val() || 0;
 		price_rail = $('#price_rail-lining' + no).val().replace(/,/g, '') || 0;
 
 		t_width_rail = parseInt(window_width) + parseInt(overlap);
 		$('#width_rail-lining' + no).val(t_width_rail / 100);
-
-		t_price_rail = parseInt(price_rail) * (parseInt(t_width_rail) / 100);
+		t_price_rail = (parseInt(price_rail) * (parseInt(t_width_rail) / 100) * qty);
 		$('#t_price_rail-lining' + no).val(("" + t_price_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+	}
+
+	function subtotal_rail_lining(no) {
+		let t_price_rail = $('#t_price_rail-lining' + no).val().replace(/,/g, '') || 0;
+		let t_add_comp_rail = $('#total_add_comp_rail-lining' + no).val().replace(/,/g, '') || 0;
+		let subtotal_rail = parseInt(t_price_rail) + parseInt(t_add_comp_rail);
+		$('#subtotal_rail-lining' + no).val(("" + subtotal_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
+	}
+
+	function total_rail_lining(no) {
+		let v_disc_rail = $('#v_diskon_rail-lining' + no).val().replace(/,/g, '') || 0;
+		console.log(v_disc_rail);
+		let subtotal_rail = $('#subtotal_rail-lining' + no).val().replace(/,/g, '') || 0;
+		let total_rail = parseInt(subtotal_rail) - parseInt(v_disc_rail);
+		$('#total_rail-lining' + no).val(("" + total_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
 	}
 </script>

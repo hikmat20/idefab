@@ -9,8 +9,8 @@
 <div class="col-md-6" data-type="panel" id="type_vitrage<?= $no ?>">
 	<br>
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="bukaan<?= $no ?>">Buka Arah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<select class="form-control required select2" name="product_vitrage[<?= $no ?>][bukaan]" id="bukaan-vitrage<?= $no ?>">
 					<option value="" <?= $dataPanel->bukaan = '' ? 'selected' : '' ?>></option>
@@ -23,8 +23,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_kiri-vitrage<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_kiri-vitrage<?= $no ?>">Overlap Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required ovl_kiri-vitrage" value="<?= $dataPanel->ovl_kiri != '' ? $dataPanel->ovl_kiri : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_vitrage[<?= $no ?>][ovl_kiri]" id="ovl_kiri-vitrage<?= $no ?>">
@@ -36,8 +36,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ovl_tengah-vitrage<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ovl_tengah-vitrage<?= $no ?>">Overlap Tengah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required ovl_tengah-vitrage" value="<?= $dataPanel->ovl_tengah != '' ? $dataPanel->ovl_tengah : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_vitrage[<?= $no ?>][ovl_tengah]" id="ovl_tengah-vitrage<?= $no ?>">
@@ -49,34 +49,47 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="jahit_h-vitrage<?= $no ?>">Jahit Horizontal <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="jahit_h-vitrage<?= $no ?>">Jahit Kanan-Kiri <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required jahit_h-vitrage" value="<?= $dataPanel->jahit_h != '' ? $dataPanel->jahit_h : '' ?>" data-id="<?= $no ?>" placeholder="0" name="product_vitrage[<?= $no ?>][jahit_h]" id="jahit_h-vitrage<?= $no ?>">
 					<div class="input-group-addon">cm</div>
 				</div>
-				<label class="label label-danger jahit_h-vitrage<?= $no ?> hideIt">Jahit Horizontal Can't be empty!</label>
+				<label class="label label-danger jahit_h-vitrage<?= $no ?> hideIt">Jahit Kanan-Kiri Can't be empty!</label>
 			</strong>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="jahit_v-vitrage<?= $no ?>">Jahit Vertikal <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="jahit_v-vitrage<?= $no ?>">Jahit Atas-Bawah <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required jahit_v-vitrage" value="<?= $dataPanel->jahit_v != '' ? $dataPanel->jahit_v : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][jahit_v]" id="jahit_v-vitrage<?= $no ?>">
 					<div class="input-group-addon">cm</div>
 				</div>
-				<label class="label label-danger jahit_v-vitrage<?= $no ?> hideIt">Jahit Vertikal Can't be empty!</label>
+				<label class="label label-danger jahit_v-vitrage<?= $no ?> hideIt">Jahit Atas-Bawah Can't be empty!</label>
 			</strong>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="fullness-vitrage<?= $no ?>">Fullness <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="vertikal_repeat-vitrage<?= $no ?>">Jahit Atas-Bawah <span class="text-red">*</span></label>
+		<div class="col-md-8">
+			<strong>
+				<div class="input-group">
+					<input type="number" min="0" class="form-control required vertikal_repeat-vitrage" value="<?= $dataPanel->vertikal_repeat != '' ? $dataPanel->vertikal_repeat : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][vertikal_repeat]" id="vertikal_repeat-vitrage<?= $no ?>">
+					<div class="input-group-addon">cm</div>
+				</div>
+				<label class="label label-danger vertikal_repeat-vitrage<?= $no ?> hideIt">Vertikal Repeat Can't be empty!</label>
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="fullness-vitrage<?= $no ?>">Fullness <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" min="0" class="form-control required fullness-vitrage" value="<?= $dataPanel->fullness != '' ? $dataPanel->fullness : '' ?>" placeholder="0" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][fullness]" id="fullness-vitrage<?= $no ?>">
@@ -88,8 +101,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rumus_panel-vitrage<?= $no ?>">Rumus Panel</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="rumus_panel-vitrage<?= $no ?>">Rumus Panel</label>
+		<div class="col-md-8">
 			<strong>
 				<input type="text" readonly class="form-control rumus_panel-vitrage" value="<?= $dataPanel->rumus_panel != '' ? $dataPanel->rumus_panel : '' ?>" placeholder="0" name="product_vitrage[<?= $no ?>][rumus_panel]" id="rumus_panel-vitrage<?= $no ?>">
 				<label class="label label-danger rumus_panel-vitrage<?= $no ?> hideIt">Rumus Panel Can't be empty!</label>
@@ -98,8 +111,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="r_up_panel-vitrage<?= $no ?>">Round Up Panel <span class="text-red">*</span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="r_up_panel-vitrage<?= $no ?>">Round Up Panel <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<input type="number" class="form-control required r_up_panel-vitrage" value="<?= $dataPanel->round_up != '' ? $dataPanel->round_up : '' ?>" placeholder="0" min="0" name="product_vitrage[<?= $no ?>][r_up_panel]" id="r_up_panel-vitrage<?= $no ?>" data-id="<?= $no ?>">
 				<label class="label label-danger r_up_panel-vitrage<?= $no ?> hideIt">Round Up Panel Can't be empty!</label>
@@ -113,8 +126,8 @@
 <div class="col-md-6">
 	<br>
 	<!-- <div class="form-group">
-		<label class="control-label col-sm-3" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="qty_unit<?= $no ?>">Qty Unit <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control required text-right qty_unit" data-id="<?= $no ?>" placeholder="0" min="0" name="product_vitrage[<?= $no ?>][qty_unit]" id="qty_unit<?= $no ?>">
@@ -126,8 +139,8 @@
 	</div> -->
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="t_kain-vitrage<?= $no ?>">Total Kain <span class="text-red">*</span></label>
-		<div class="col-md-4">
+		<label class="col-sm-4" for="t_kain-vitrage<?= $no ?>">Total Kain <span class="text-red">*</span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="text" readonly class="form-control" value="<?= $dataPanel->t_kain != '' ? $dataPanel->t_kain : '' ?>" placeholder="0" name="product_vitrage[<?= $no ?>][t_kain]" id="t_kain-vitrage<?= $no ?>">
@@ -139,8 +152,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="disc_vitrage<?= $no ?>">Diskon Fabric </span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="disc_vitrage<?= $no ?>">Diskon Fabric </span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<input type="number" class="form-control disc_vitrage" value="<?= $dataPanel->disc_persen != '' ? $dataPanel->disc_persen : '' ?>" placeholder="0" min="0" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][disc_vitrage]" id="disc_vitrage<?= $no ?>">
@@ -156,8 +169,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="harga_aft_disc<?= $no ?>">Harga After Diskon </span></label>
+		<div class="col-md-8">
 			<strong>
 				<div class="input-group">
 					<span class="input-group-addon">Rp.</span>
@@ -170,8 +183,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="mainten-vitrage<?= $no ?>">Maintenance <span class="text-red">*</span></label>
-		<div class="col-md-3 col-sm-3">
+		<label class="col-sm-4" for="mainten-vitrage<?= $no ?>">Maintenance <span class="text-red">*</span></label>
+		<div class="col-md-8 col-sm-3">
 			<strong>
 				<label class="label label-danger mainten-vitrage<?= $no ?> hideIt">Keterangan Can't be empty!</label>
 			</strong>
@@ -192,8 +205,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="curtain-vitrage<?= $no ?>">Vitrage Roll</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="curtain-vitrage<?= $no ?>">Vitrage Roll</label>
+		<div class="col-md-8">
 			<table width="100%" data-id="<?= $no ?>" id="dtBook-vitrage<?= $no ?>" class="dtBook-vitrage table-bordered table-condensed table-striped">
 				<thead>
 					<tr>
@@ -239,8 +252,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ex_comm-vitrage<?= $no ?>">External Commission</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ex_comm-vitrage<?= $no ?>">External Commission</label>
+		<div class="col-md-8">
 			<!--<input type="text" class="form-control required" name="product_vitrage[<?= $no ?>][ex_comm]" id="ex_comm<?= $no ?>">
 			<label class="label label-danger ex_comm<?= $no ?> hideIt">External Commission Can't be empty!</label>
 		-->
@@ -288,8 +301,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket-vitrage<?= $no ?>">Keterangan</label>
-		<div class="col-md-7">
+		<label class="col-sm-4" for="ket-vitrage<?= $no ?>">Keterangan</label>
+		<div class="col-md-8">
 			<strong>
 				<textarea type="text" class="form-control" placeholder="Keterangan" name="product_vitrage[<?= $no ?>][ket]" id="ket-vitrage<?= $no ?>"><?= $dataPanel->keterangan ?></textarea>
 				<label class="label label-danger ket-vitrage<?= $no ?> hideIt">Keterangan Can't be empty!</label>

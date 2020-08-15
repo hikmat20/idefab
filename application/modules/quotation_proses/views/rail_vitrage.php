@@ -1,6 +1,6 @@
 <div class="col-md-6">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rail_material-vitrage<?= $no ?>">Rail Material</label>
+		<label class="col-sm-4" for="rail_material-vitrage<?= $no ?>">Rail Material</label>
 		<div class="col-md-7">
 			<strong>
 				<select class="form-control required select2 rail_material-vitrage" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][rail_material]" id="rail_material-vitrage<?= $no ?>">
@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="cust_rail_name-vitrage<?= $no ?>">Customer Product Name</label>
+		<label class="col-sm-4" for="cust_rail_name-vitrage<?= $no ?>">Customer Product Name</label>
 		<div class="col-md-7">
 			<strong>
 				<input class="form-control cust_rail_name-vitrage" value="<?= $fabrics_vitrage->cust_rail_name ? $fabrics_vitrage->cust_rail_name : '' ?>" data-id="<?= $no ?>" name="product_vitrage[<?= $no ?>][cust_rail_name]" id="cust_rail_name-vitrage<?= $no ?>">
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="Width<?= $no ?>">Window Width</label>
+		<label class="col-sm-4" for="Width<?= $no ?>">Window Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="overlap-vitrage<?= $no ?>">Overlap</label>
+		<label class="col-sm-4" for="overlap-vitrage<?= $no ?>">Overlap</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -51,7 +51,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="width_rail-vitrage<?= $no ?>">Rail Width</label>
+		<label class="col-sm-4" for="width_rail-vitrage<?= $no ?>">Rail Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="price_rail-vitrage<?= $no ?>">Price</label>
+		<label class="col-sm-4" for="price_rail-vitrage<?= $no ?>">Price</label>
 		<div class="col-md-7">
 			<strong>
 				<input type="hidden" min="0" value="<?= $fabrics_vitrage->price ? $fabrics_vitrage->price : '' ?>" readonly class="form-control text-right" placeholder="0" name="product_vitrage[<?= $no ?>][price_rail]" id="price_rail-vitrage<?= $no ?>">
@@ -73,7 +73,16 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="diskon_rail-vitrage<?= $no ?>">Total Diskon</label>
+		<label class="col-sm-4" for="subtotal_rail-vitrage<?= $no ?>">Subtotal</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" min="0" value="<?= $fabrics_vitrage->subtotal_rail ? number_format($fabrics_vitrage->subtotal_rail) : '' ?>" readonly class="form-control text-right" placeholder="0" name="product_vitrage[<?= $no ?>][subtotal_rail]" id="subtotal_rail-vitrage<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="diskon_rail-vitrage<?= $no ?>">Diskon</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -87,7 +96,16 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket_rail-vitrage<?= $no ?>">Keterangan</label>
+		<label class="col-sm-4" for="total_rail-vitrage<?= $no ?>">Total</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" min="0" value="<?= $fabrics_vitrage->total_rail ? number_format($fabrics_vitrage->total_rail) : '' ?>" readonly class="form-control text-right" placeholder="0" name="product_vitrage[<?= $no ?>][total_rail]" id="total_rail-vitrage<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="ket_rail-vitrage<?= $no ?>">Keterangan</label>
 		<div class="col-md-7">
 			<strong>
 				<textarea type="text" min="0" class="form-control" name="product_vitrage[<?= $no ?>][ket_rail]" id="ket_rail-vitrage<?= $no ?>"><?= $fabrics_vitrage->keterangan != '' ? $fabrics_vitrage->keterangan : '' ?></textarea>
@@ -99,7 +117,7 @@
 
 <div class="col-md-6">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="basic_commponen<?= $no ?>">Basic Component</label>
+		<label class="col-sm-4" for="basic_commponen<?= $no ?>">Basic Component</label>
 		<div class="col-md-8">
 			<strong>
 
@@ -163,7 +181,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="additional_comp_rail-vitrage<?= $no ?>">Additional Compoenent</label>
+		<label class="col-sm-4" for="additional_comp_rail-vitrage<?= $no ?>">Additional Compoenent</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered additional_comp_rail-vitrage" id="additional_comp_rail-vitrage<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -216,6 +234,15 @@
 						<?php
 						} ?>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" class="text-right">Total</td>
+							<td colspan="">
+								<input type="text" name="product_vitrage[<?= $no ?>][total_add_comp_rail]" id="total_add_comp_rail-vitrage<?= $no ?>" class="form-control text-right" placeholder="0" readonly>
+							</td>
+							<td></td>
+						</tr>
+					</tfoot>
 				</table>
 				<button type="button" class="btn btn-sm btn-primary addData" data-type="additionalComp" data-product="vitrage" data-id="<?= $no ?>">Add Component</button>
 			</strong>
@@ -223,7 +250,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ex_comm_rail-vitrage<?= $no ?>">External Commission</label>
+		<label class="col-sm-4" for="ex_comm_rail-vitrage<?= $no ?>">External Commission</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered extComm_rail-vitrage" id="extComm_rail-vitrage<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -274,21 +301,39 @@
 <script>
 	$(document).on('change', '.overlap-vitrage', function() {
 		no = $(this).data('id');
-		overlap_vitrage(no);
-		diskon_rail_vitrage(no);
 		id_rail = $('#rail_material-vitrage' + no).val();
-		getBasicComponentVitrage(id_rail, no)
+		overlap_vitrage(no);
+		getBasicComponentVitrage(id_rail, no);
+		subtotal_rail_vitrage(no);
+		diskon_rail_vitrage(no);
+		total_rail_vitrage(no);
 	})
 
 	function overlap_vitrage(no) {
 		overlap = $('#overlap-vitrage' + no).val() || 0;
 		window_width = $('#window_width-vitrage' + no).val() || 0;
 		price_rail = $('#price_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+		qty = $('#qty_unit' + no).val() || 0;
 
 		t_width_rail = parseInt(window_width) + parseInt(overlap);
 		$('#width_rail-vitrage' + no).val(t_width_rail / 100);
 
-		t_price_rail = parseInt(price_rail) * (parseInt(t_width_rail) / 100);
+		t_price_rail = (parseInt(price_rail) * (parseInt(t_width_rail) / 100) * qty);
 		$('#t_price_rail-vitrage' + no).val(("" + t_price_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+	}
+
+	function subtotal_rail_vitrage(no) {
+		let t_price_rail = $('#t_price_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+		let t_add_comp_rail = $('#total_add_comp_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+		let subtotal_rail = parseInt(t_price_rail) + parseInt(t_add_comp_rail);
+		$('#subtotal_rail-vitrage' + no).val(("" + subtotal_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
+	}
+
+	function total_rail_vitrage(no) {
+		let v_disc_rail = $('#v_diskon_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+		console.log(v_disc_rail);
+		let subtotal_rail = $('#subtotal_rail-vitrage' + no).val().replace(/,/g, '') || 0;
+		let total_rail = parseInt(subtotal_rail) - parseInt(v_disc_rail);
+		$('#total_rail-vitrage' + no).val(("" + total_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
 	}
 </script>

@@ -13,7 +13,7 @@
 </head>
 
 <body style="font-family:Arial">
-  <h3 style="text-align:;">Ref.<?= $data->id_quotation ?></h3>
+  <h3 style="text-align:;">Ref.<?= $data->nomor ?></h3>
   <?php
   if ($data->status == '0') {
     $status = "Open";
@@ -45,7 +45,7 @@
               <td width="">
                 Quotation Number
               </td>
-              <td>: <?= $data->id_quotation ?></td>
+              <td>: <?= $data->nomor ?></td>
               <input type="hidden" name="id_quotation" value="<?= $data->id_quotation ?>">
             </tr>
             <tr>
@@ -155,7 +155,8 @@
             <td colspan="13"><strong><?= ucfirst($room->name_room) ?> (L : <?= $room->width_window ?> x T : <?= $room->height_window ?>)</strong></td>
           </tr>
           <?php
-          $qttCurtain = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'item' => 'curtain'])->row();
+          $qttCurtain = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $id, 'item' => 'curtain'])->row();
+
           if ($qttCurtain) { ?>
             <tr>
               <td colspan="13">
@@ -166,10 +167,14 @@
               <td>
                 <?php
                 $curtain = $this->db->get_where('master_product_fabric', ['id_product' => $qttCurtain->id_product])->row();
-                $t_hrg_kain = $qttCurtain->harga_kain * $qttCurtain->t_kain;
-                $total = $t_hrg_kain - ($t_hrg_kain * $qttCurtain->disc_persen / 100);
+                // echo "<pre>";
+                // print_r($curtain);
+                // echo "<pre>";
+                // // exit;
+                $t_hrg_kain = ($qttCurtain->harga_kain * $qttCurtain->t_kain)  * $curtain->qty;
+                $total = ($t_hrg_kain - ($t_hrg_kain * $qttCurtain->disc_persen / 100)) * $curtai->qty;
                 ?>
-                <strong><?= $curtain->id_product ?></strong><br>
+                <strong><?= $qttCurtain->id_product ?></strong><br>
                 <strong><?= $qttCurtain->cust_product_name ?></strong><br>
                 Width : <?= $curtain->width ?> cm<br>
                 Weight : <?= $curtain->weight ?> cm<br>
@@ -192,7 +197,7 @@
             </tr>
             <?php
             $rail = $this->db->get_where('mp_rail', ['id_rail' => $qttCurtain->rail_material])->row();
-            $total_rail = $rail->bc_selling_price * $qttCurtain->t_kain;
+            $total_rail = ($rail->bc_selling_price * $qttCurtain->t_kain)  * $qttLining->qty;
             ?>
             <tr>
               <td colspan="13"><strong>Rail Curtain</strong></td>
@@ -217,7 +222,7 @@
             </tr>
             <?php
             $jahitan = $this->db->get_where('sewing', ['id_sewing' => $qttCurtain->jahitan])->row();
-            $total_jahit = $jahitan->price * $qttCurtain->t_kain;
+            $total_jahit = ($jahitan->price * $qttCurtain->t_kain) * $qttLining->qty;
             ?>
             <tr>
               <td colspan="13"><strong>Jahitan Curtain</strong></td>
@@ -237,7 +242,7 @@
               <td></td>
             </tr>
             <?php
-            $af = $this->db->get_where('qtt_air_freight', ['id_ruangan' => $room->id_ruangan, 'item' => 'curtain'])->row();
+            $af = $this->db->get_where('qtt_air_freight', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $id, 'item' => 'curtain'])->row();
             ?>
             <tr>
               <td><strong>Biaya Air Freight Curtain</strong></td>
@@ -257,11 +262,10 @@
 
           <!-- LINING -->
           <?php
-          $qttLining = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'item' => 'lining'])->row();
+          $qttLining = $this->db->get_where('qtt_product_fabric', ['id_ruangan' => $room->id_ruangan, 'id_quotation' => $id, 'item' => 'lining'])->row();
           if ($qttLining) { ?>
             <tr>
               <td colspan="13">
-
               </td>
             </tr>
             <tr>
@@ -273,8 +277,8 @@
               <td>
                 <?php
                 $lining = $this->db->get_where('master_product_fabric', ['id_product' => $qttLining->id_product])->row();
-                $t_hrg_kain = $qttLining->harga_kain * $qttLining->t_kain;
-                $total = $t_hrg_kain - ($t_hrg_kain * $qttLining->disc_persen / 100);
+                $t_hrg_kain = ($qttLining->harga_kain * $qttLining->t_kain) * $qttLining->qty;
+                $total = ($t_hrg_kain - ($t_hrg_kain * $qttLining->disc_persen / 100)) * $qttLining->qty;
                 ?>
                 <strong><?= $lining->id_product ?></strong><br>
                 <strong><?= $qttLining->cust_product_name ?></strong><br>

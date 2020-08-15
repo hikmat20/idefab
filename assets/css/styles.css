@@ -1,15 +1,15 @@
 /*Menu Editor*/
 .sortable li.mjs-nestedSortable-leaf div {
-    background: transparent -moz-linear-gradient(center top , #FFF 0%, #F6F6F6 85%, #BCCCBC 100%) repeat scroll 0% 0% !important;
+    background: transparent -moz-linear-gradient(center top, #FFF 0%, #F6F6F6 85%, #BCCCBC 100%) repeat scroll 0% 0% !important;
 }
 
 /*Login Page*/
-.login-page{
-	background-image: url("../images/bg_login.png");
+.login-page {
+    background-image: url("../images/bg_login.png");
 }
 
-.login-logo a{
-	color: #008d4c;
+.login-logo a {
+    color: #008d4c;
 }
 
 /*Ajax Loading image*/
@@ -22,8 +22,10 @@
     width: 100%;
     height: 100%;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.445);
     z-index: 99999999;
+    transition: ease-in-out;
+    transition-duration: 0.5ms;
 }
 
 .ajax_loader img {
@@ -36,6 +38,7 @@
     bottom: 0;
     right: 0;
     width: 150px;
-    height: 150px;
+    height: auto;
     pointer-events: none;
+    box-shadow: grey;
 }

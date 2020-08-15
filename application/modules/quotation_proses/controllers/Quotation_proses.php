@@ -181,8 +181,8 @@ class Quotation_proses extends Admin_Controller
 				  a.id,a.nomor,a.date,b.name_customer,c.nama_karyawan, a.grand_total,a.status,a.activation,d.nm_lengkap,a.modified_on
 				FROM
 				  quotation_header a LEFT JOIN master_customer b ON a.id_customer = b.id_customer
-				   INNER JOIN karyawan c ON a.id_karyawan = c.id_karyawan
-           INNER JOIN users d ON d.id_user = a.modified_by WHERE 1=1 and a.status = '0'
+				   LEFT JOIN karyawan c ON a.id_karyawan = c.id_karyawan
+           LEFT JOIN users d ON d.id_user = a.modified_by WHERE 1=1 and a.status = '0'
           
 				" . $where_activation . " 
 				AND (
@@ -267,13 +267,13 @@ class Quotation_proses extends Admin_Controller
       $nestedData[]  = "<div align='center'>" . ($status) . "</div>";
       if ($this->auth->restrict($this->viewPermission)) :
         $nestedData[]  = "<div style='text-align:center'>
-              <a class='btn btn-sm btn-warning print' href='javascript:void(0)' data-toggle='tooltip' title='View PO' data-id_quotation='" . $row['nomor'] . "' style='width:30px; display:inline-block'>
+              <a class='btn btn-sm btn-warning print' href='javascript:void(0)' data-toggle='tooltip' title='View PO' data-id_quotation='" . $row['id'] . "' style='width:30px; display:inline-block'>
                 <span class='fa fa-search'></span> 
               </a>
-              <a class='btn btn-sm btn-success reopen_po' href='javascript:void(0)' data-toggle='tooltip' title='Re-open PO' data-id_quotation='" . $row['nomor'] . "' style='width:30px; display:inline-block'>
+              <a class='btn btn-sm btn-success reopen_po' href='javascript:void(0)' data-toggle='tooltip' title='Re-open PO' data-id_quotation='" . $row['id'] . "' style='width:30px; display:inline-block'>
                 <span class='fa fa-folder-open'></span>
               </a>
-              <a class='btn btn-sm btn-danger change_po' href='javascript:void(0)' data-toggle='tooltip' title='Change PO' data-id_quotation='" . $row['nomor'] . "' style='width:30px; display:inline-block'>
+              <a class='btn btn-sm btn-danger change_po' href='javascript:void(0)' data-toggle='tooltip' title='Change PO' data-id_quotation='" . $row['id'] . "' style='width:30px; display:inline-block'>
                 <span class='fa fa-refresh'></span>
               </a>
   
@@ -1138,18 +1138,20 @@ class Quotation_proses extends Admin_Controller
     $data                 = $this->input->post();
     $type                 = $data['type'];
     $idQuotation          = $this->getIdQuotation();
-    // echo "<pre>";
-    // print_r($rev);
-    // echo "<pre>";
-    // exit;
+
 
     if (!empty($data)) {
       if (!empty($data['ruang'])) {
         $arr_ruang = array();
+        $nomor = substr($data['nomor'], 0, 5);
+        $code = 'RM';
         foreach ($data['ruang'] as $ruang => $x) {
+          $urut = str_pad($ruang, 2, "0", STR_PAD_LEFT);
+          $id_ruang = $code . $nomor . "-" . $urut;
+
           $arr_ruang[$ruang]['id_quotation']   = $idQuotation;
           $arr_ruang[$ruang]['section_room']   = $ruang;
-          $arr_ruang[$ruang]['id_ruangan']     = $x['id_ruangan'];
+          $arr_ruang[$ruang]['id_ruangan']     = $id_ruang;
           $arr_ruang[$ruang]['name_room']      = $x['nm_ruang'];
           $arr_ruang[$ruang]['floor']          = $x['lantai'];
           $arr_ruang[$ruang]['window']         = $x['jendela'];
@@ -1160,7 +1162,6 @@ class Quotation_proses extends Admin_Controller
           $arr_ruang[$ruang]['date']           = date('Y-m-d H:i:s');
         }
       }
-      // exit;
 
       // CURTAIN
       // =======================================================================================================================
@@ -1170,7 +1171,7 @@ class Quotation_proses extends Admin_Controller
           $ArrCurtain[$curtain]['id_quotation']         = $idQuotation;
           $ArrCurtain[$curtain]['section']              = $curtain;
           $ArrCurtain[$curtain]['item']                 = 'curtain';
-          $ArrCurtain[$curtain]['id_ruangan']           = $data['ruang'][$curtain]['id_ruangan'];
+          $ArrCurtain[$curtain]['id_ruangan']           = $id_ruang;
           $ArrCurtain[$curtain]['id_product']           = $x['id_product'];
           $ArrCurtain[$curtain]['cust_product_name']    = $x['cust_curtain_name'];
           $ArrCurtain[$curtain]['panel']                = $x['panel'];
@@ -1180,6 +1181,7 @@ class Quotation_proses extends Admin_Controller
           $ArrCurtain[$curtain]['jahit_h']              = $x['jahit_h'];
           $ArrCurtain[$curtain]['jahit_v']              = $x['jahit_v'];
           $ArrCurtain[$curtain]['fullness']             = $x['fullness'];
+          $ArrCurtain[$curtain]['vertikal_repeat']      = $x['vertikal_repeat'];
           $ArrCurtain[$curtain]['rumus_panel']          = $x['rumus_panel'];
           $ArrCurtain[$curtain]['round_up']             = $x['r_up_panel'];
           $ArrCurtain[$curtain]['qty_unit']             = $data['ruang'][$curtain]['qty_unit'];
@@ -1201,6 +1203,7 @@ class Quotation_proses extends Admin_Controller
           $ArrCurtain[$curtain]['disc_jahitan']         = $x['disc_jahitan'];
           $ArrCurtain[$curtain]['val_disc_jahit']       = str_replace(',', '', $x['val_disc_jahit']);
           $ArrCurtain[$curtain]['t_hrg_jahitan']        = str_replace(',', '', $x['t_hrg_jahitan']);
+          $ArrCurtain[$curtain]['ket_jahitan']          = $x['ket_jahitan'];
           $ArrCurtain[$curtain]['rail']                 = $x['rail_curtain'];
           $ArrCurtain[$curtain]['rail_material']        = $x['rail_material'];
           $ArrCurtain[$curtain]['cust_rail_name']       = $x['cust_rail_name'];
@@ -1210,10 +1213,12 @@ class Quotation_proses extends Admin_Controller
           $ArrCurtain[$curtain]['qty']                  = $data['ruang'][$curtain]['qty_unit'];
           $ArrCurtain[$curtain]['price']                = str_replace(',', '', $x['price_rail']);
           $ArrCurtain[$curtain]['t_price']              = str_replace(',', '', $x['t_price_rail']);
+          $ArrCurtain[$curtain]['total_add_comp_rail']        = str_replace(',', '', $x['total_add_comp_rail']);
+          $ArrCurtain[$curtain]['subtotal']        = str_replace(',', '', $x['subtotal']);
           $ArrCurtain[$curtain]['diskon_rail']          = $x['diskon_rail'];
           $ArrCurtain[$curtain]['v_diskon_rail']        = str_replace(',', '', $x['v_diskon_rail']);
+          $ArrCurtain[$curtain]['total_rail']        = str_replace(',', '', $x['total_rail']);
           $ArrCurtain[$curtain]['ket_rail']             = $x['ket_rail'];
-          // $ArrCurtain[$curtain]['date']                 = date('Y-m-d H:i:s');
         }
       }
 
@@ -1314,7 +1319,7 @@ class Quotation_proses extends Admin_Controller
           $ArrLining[$lining]['id_quotation']         = $idQuotation;
           $ArrLining[$lining]['section']              = $lining;
           $ArrLining[$lining]['item']                 = 'lining';
-          $ArrLining[$lining]['id_ruangan']           = $data['ruang'][$lining]['id_ruangan'];
+          $ArrLining[$lining]['id_ruangan']           = $id_ruang;
           $ArrLining[$lining]['id_product']           = $x['id_product'];
           $ArrLining[$lining]['cust_product_name']    = $x['cust_lining_name'];
           $ArrLining[$lining]['panel']                = $x['panel'];
@@ -1458,7 +1463,7 @@ class Quotation_proses extends Admin_Controller
           $ArrVitrage[$vitrage]['id_quotation']               = $idQuotation;
           $ArrVitrage[$vitrage]['section']                    = $vitrage;
           $ArrVitrage[$vitrage]['item']                       = 'vitrage';
-          $ArrVitrage[$vitrage]['id_ruangan']                 = $data['ruang'][$vitrage]['id_ruangan'];
+          $ArrVitrage[$vitrage]['id_ruangan']                 = $id_ruang;
           $ArrVitrage[$vitrage]['id_product']                 = $x['id_product'];
           $ArrVitrage[$vitrage]['cust_product_name']          = $x['cust_vitrage_name'];
           $ArrVitrage[$vitrage]['panel']                      = $x['panel'];
@@ -1616,7 +1621,7 @@ class Quotation_proses extends Admin_Controller
             $ArrAccessories[$no . $key]['id_quotation']     = $idQuotation;
             $ArrAccessories[$no . $key]['section']          = $no;
             $ArrAccessories[$no . $key]['item']             = 'accessoriess';
-            $ArrAccessories[$no . $key]['id_ruangan']       = $data['ruang'][$no]['id_ruangan'];
+            $ArrAccessories[$no . $key]['id_ruangan']       = $id_ruang;
             $ArrAccessories[$no . $key]['id_accessories']   = $x['id_acc'];
             $ArrAccessories[$no . $key]['name_accessories'] = $x['name_accessories'];
             $ArrAccessories[$no . $key]['qty']              = $x['qty'];
@@ -1639,6 +1644,7 @@ class Quotation_proses extends Admin_Controller
 
       //SUPPLIER DATA
       $insertData  = array(
+        'nomor'          => $nomor,
         'id_customer'    => $data['id_cuctomer'],
         'id_pic'         => $data['id_pic'],
         'address'        => $data['address'],
@@ -1655,7 +1661,7 @@ class Quotation_proses extends Admin_Controller
       );
 
       // echo "<pre>";
-      // print_r($AddtCompRailVitrage);
+      // print_r($data);
       // echo "<pre>";
       // exit;
       if ($type == 'edit') {
@@ -1664,8 +1670,9 @@ class Quotation_proses extends Admin_Controller
           $num = str_pad($count, 2, "0", STR_PAD_LEFT);
           $rev = '/Rev-' . $num;
         } else {
-          $no = substr($data['nomor'], -2);
-          $count = $no + 1;
+          $max = $this->db->query('SELECT MAX(RIGHT(nomor,2)) as max_num from quotation_header where left( nomor, 23 ) = "' . substr($data['nomor'], 0, 23) . '" ORDER BY nomor DESC')->row();
+          // $no = substr($data['nomor'], -2);
+          $count = $max->max_num + 1;
           $num = str_pad($count, 2, "0", STR_PAD_LEFT);
           $rev = '/Rev-' . $num;
         }
@@ -1674,10 +1681,7 @@ class Quotation_proses extends Admin_Controller
         $insertData['modified_on']    = date('Y-m-d H:i:s');
         $insertData['modified_by']    = $this->auth->user_id();
         $insertData['activation']     = 'aktif';
-        // echo "<pre>";
-        // print_r($insertData);
-        // echo "<pre>";
-        // exit;
+
         $this->db->insert('quotation_header', $insertData);
         // $this->db->where('id', $idQuotation)->update('quotation_header', $insertData);
         // curtain
@@ -1981,6 +1985,11 @@ class Quotation_proses extends Admin_Controller
 
       ];
 
+      // echo "<pre>";
+      // print_r($data);
+      // echo "<pre>";
+      // exit;
+
       $this->db->trans_begin();
       $this->db->delete('qtt_air_freight', ['id_quotation' => $data['id_quotation']]);
       $this->db->delete('qtt_delivery', ['id_quotation' => $data['id_quotation']]);
@@ -2032,7 +2041,7 @@ class Quotation_proses extends Admin_Controller
       }
 
       if (!empty($summary)) {
-        $this->db->update('quotation_header', $summary, ['id_quotation' => $data['id_quotation']]);
+        $this->db->update('quotation_header', $summary, ['id' => $data['id_quotation']]);
       }
 
       if ($data['type'] == 'add') {
@@ -2152,7 +2161,7 @@ class Quotation_proses extends Admin_Controller
 
           $this->db->trans_begin();
 
-          $this->db->update('quotation_header', $udatePo, ['id_quotation' => $data['id_quotation']]);
+          $this->db->update('quotation_header', $udatePo, ['id' => $data['id_quotation']]);
 
 
           $this->db->trans_complete();
@@ -2301,9 +2310,15 @@ class Quotation_proses extends Admin_Controller
   {
     $count = $this->input->post('count');
     $id = $this->input->post('id');
+    $nomor = $this->input->post('nomor');
+
     if (!empty($id)) {
       $this->template->set('id', $id);
     }
+    if (!empty($nomor)) {
+      $this->template->set('nomor', $nomor);
+    }
+
     $this->template->set('count', $count);
     $this->template->render('form');
   }
@@ -2544,7 +2559,7 @@ class Quotation_proses extends Admin_Controller
     $id = $this->input->post('id_quotation');
 
     $this->db->trans_begin();
-    $reopenpo   = $this->db->where('id_quotation', $id)->update('quotation_header', ['status' => '0', 'tgl_upload_po' => null, 'no_po' => null, 'upload_po' => null]);
+    $reopenpo   = $this->db->where('id', $id)->update('quotation_header', ['status' => '0', 'tgl_upload_po' => null, 'no_po' => null, 'upload_po' => null]);
     $this->db->trans_complete();
 
 
@@ -2601,16 +2616,16 @@ class Quotation_proses extends Admin_Controller
     $mpdf->SetImportUse();
     $mpdf->RestartDocTemplate();
 
-    $newId = str_replace('-', '/', $id);
-    $data           = $this->db->get_where('quotation_header', array('id_quotation' => $newId))->row();
+    // $newId = str_replace('-', '/', $id);
+    $data           = $this->db->get_where('quotation_header', array('id' => $id))->row();
     $customer       = $this->db->get_where('master_customer', array('id_customer' => $data->id_customer))->row();
     $cat_cust       = $this->db->get_where('child_customer_category', array('id_category_customer' => $data->id_cust_cut))->row();
     $disc_cat       = $this->db->get_where('discount_category', array('id_category' => $data->id_disc_cat))->row();
     $type_pro       = $this->db->get_where('type_project', array('id_type_project' => $data->id_type_project))->row();
     $pic_cust       = $this->db->get_where('child_customer_pic', array('id_customer' => $data->id_customer))->row();
     $karyawan       = $this->db->get_where('karyawan', array('id_karyawan' => $data->id_karyawan))->row();
-    $rooms         = $this->db->get_where('quotation_room', array('id_quotation' => $data->id_quotation))->result();
-    $pay_term         = $this->db->get_where('payment_term', array('id_quotation' => $data->id_quotation))->result();
+    $rooms         = $this->db->get_where('quotation_room', array('id_quotation' => $id))->result();
+    $pay_term         = $this->db->get_where('payment_term', array('id_quotation' => $id))->result();
 
     // echo "<pre>";
     // print_r($customer);
@@ -2633,20 +2648,20 @@ class Quotation_proses extends Admin_Controller
     $header = '<div style="text-align:center;"><img src="' . base_url() . '/assets/images/importa.png" style="width: 230px; height: auto; margin: 0;text-align:center" /></div>';
     $this->mpdf->SetHTMLHeader($header);
     $this->mpdf->SetHTMLFooter('<div style="text-align:center;font-size:9px"><hr>Jl Mangga Besar Raya 59 C Jakarta 11180 - INDONESIA Telp: 62-21-6010551-3, website: www.idefabrics.com</div>');
-    $this->mpdf->AddPage(
-      'P',
-      '',
-      '',
-      '',
-      '',
-      15, // margin_left
-      15, // margin right
-      30, // margin top
-      15, // margin bottom
-      7, // margin header
-      3 // margin footer
-    );
-    $this->mpdf->WriteHTML($pengantar);
+    // $this->mpdf->AddPage(
+    //   'P',
+    //   '',
+    //   '',
+    //   '',
+    //   '',
+    //   15, // margin_left
+    //   15, // margin right
+    //   30, // margin top
+    //   15, // margin bottom
+    //   7, // margin header
+    //   3 // margin footer
+    // );
+    // $this->mpdf->WriteHTML($pengantar);
     $this->mpdf->AddPage(
       'L',
       '',

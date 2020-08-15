@@ -5,7 +5,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 ?>
 <div class="col-md-6">
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rail_material<?= $no ?>">Rail Material</label>
+		<label class="col-sm-4" for="rail_material<?= $no ?>">Rail Material</label>
 		<div class="col-md-7">
 			<strong>
 				<select class="form-control required select2 rail_material" data-id="<?= $no ?>" name="product_curtain[<?= $no ?>][rail_material]" id="rail_material<?= $no ?>">
@@ -23,7 +23,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="rail_material<?= $no ?>">Customer Product Name</label>
+		<label class="col-sm-4" for="rail_material<?= $no ?>">Customer Product Name</label>
 		<div class="col-md-7">
 			<strong>
 				<input class="form-control cust_rail_name" value="<?= $fabrics_curtain->cust_rail_name ? $fabrics_curtain->cust_rail_name : '' ?>" data-id="<?= $no ?>" name="product_curtain[<?= $no ?>][cust_rail_name]" id="cust_rail_name<?= $no ?>">
@@ -33,7 +33,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="qyt_rail<?= $no ?>">Window Width</label>
+		<label class="col-sm-4" for="qyt_rail<?= $no ?>">Window Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -45,7 +45,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="qyt_rail<?= $no ?>">Overlap</label>
+		<label class="col-sm-4" for="qyt_rail<?= $no ?>">Overlap</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -56,7 +56,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="qyt_rail<?= $no ?>">Rail Width</label>
+		<label class="col-sm-4" for="qyt_rail<?= $no ?>">Rail Width</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
@@ -68,7 +68,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="price_rail<?= $no ?>">Price</label>
+		<label class="col-sm-4" for="price_rail<?= $no ?>">Price</label>
 		<div class="col-md-7">
 			<strong>
 				<input type="hidden" min="0" value="<?= $fabrics_curtain->price ? $fabrics_curtain->price : '' ?>" readonly class="form-control text-right" placeholder="0" name="product_curtain[<?= $no ?>][price_rail]" id="price_rail<?= $no ?>">
@@ -78,11 +78,20 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="diskon_rail<?= $no ?>">Total Diskon</label>
+		<label class="col-sm-4" for="subtotal_rail<?= $no ?>">Subtotal</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" readonly value="<?= $fabrics_curtain->diskon_rail != '' ? $fabrics_curtain->diskon_rail : '' ?>" class="form-control required text-right subtotal_rail" placeholder="0" name="product_curtain[<?= $no ?>][subtotal_rail]" data-id="<?= $no ?>" id="subtotal_rail<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="diskon_rail<?= $no ?>">Diskon</label>
 		<div class="col-md-7">
 			<strong>
 				<div class="input-group">
-					<input type="number" min="0" value="<?= $fabrics_curtain->diskon_rail != '' ? $fabrics_curtain->diskon_rail : '' ?>" class="form-control required text-right diskon_rail" placeholder="0" name="product_curtain[<?= $no ?>][diskon_rail]" data-id="<?= $no ?>" id="diskon_rail<?= $no ?>">
+					<input type="number" min="0" value="<?= $fabrics_curtain->diskon_rail != '' ? $fabrics_curtain->diskon_rail : '' ?>" class="form-control text-right diskon_rail" placeholder="0" name="product_curtain[<?= $no ?>][diskon_rail]" data-id="<?= $no ?>" id="diskon_rail<?= $no ?>">
 					<span class="input-group-addon">%</span>
 					<span class="input-group-addon">Rp.</span>
 					<input type="text" min="0" value="<?= $fabrics_curtain->v_diskon_rail != '' ? number_format($fabrics_curtain->v_diskon_rail) : '' ?>" class="form-control text-right" readonly placeholder="0" name="product_curtain[<?= $no ?>][v_diskon_rail]" id="v_diskon_rail<?= $no ?>">
@@ -92,7 +101,16 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ket_rail<?= $no ?>">Keterangan</label>
+		<label class="col-sm-4" for="<?= $no ?>">Total</label>
+		<div class="col-md-7">
+			<strong>
+				<input type="text" readonly value="<?= $fabrics_curtain->diskon_rail != '' ? $fabrics_curtain->diskon_rail : '' ?>" class="form-control text-right total_rail" placeholder="0" name="product_curtain[<?= $no ?>][total_rail]" data-id="<?= $no ?>" id="total_rail<?= $no ?>">
+			</strong>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4" for="ket_rail<?= $no ?>">Keterangan</label>
 		<div class="col-md-7">
 			<strong>
 				<textarea type="text" min="0" class="form-control" name="product_curtain[<?= $no ?>][ket_rail]" id="ket_rail<?= $no ?>"><?= $fabrics_curtain->ket_rail != '' ? $fabrics_curtain->ket_rail : '' ?></textarea>
@@ -104,7 +122,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 <div class="col-md-6">
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="basic_commponen<?= $no ?>">Basic Component</label>
+		<label class="col-sm-4" for="basic_commponen<?= $no ?>">Basic Component</label>
 		<div class="col-md-8">
 			<strong>
 				<?php
@@ -163,7 +181,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="additional_comp_rail<?= $no ?>">Additional Compoenent</label>
+		<label class="col-sm-4" for="additional_comp_rail<?= $no ?>">Additional Compoenent</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered additional_comp_rail" id="additional_comp_rail<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -187,12 +205,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 						$adtRailComponent = $this->db->get()->result();
 						foreach ($adtRailComponent as $addt => $component) {
 
-							// echo "<pre>";
-							// print_r($component);
-							// echo "</pre>";
-
 						?>
-
 							<tr>
 								<td>
 									<?= $component ? $component->name_component : '-' ?>
@@ -220,6 +233,15 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 						} ?>
 
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" class="text-right">Total</td>
+							<td colspan="">
+								<input type="text" name="product_curtain[<?= $no ?>][total_add_comp_rail]" id="total_add_comp_rail<?= $no ?>" class="form-control text-right" placeholder="0" readonly>
+							</td>
+							<td></td>
+						</tr>
+					</tfoot>
 				</table>
 				<button type="button" class="btn btn-sm btn-primary addData" data-type="additionalComp" data-product="curtain" data-id="<?= $no ?>">Add Component</button>
 			</strong>
@@ -227,7 +249,7 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 	</div>
 
 	<div class="form-group">
-		<label class="control-label col-sm-3" for="ex_comm_rail<?= $no ?>">External Commission</label>
+		<label class="col-sm-4" for="ex_comm_rail<?= $no ?>">External Commission</label>
 		<div class="col-md-8">
 			<strong>
 				<table class="table-condensed table-striped table-bordered extComm_rail" id="extComm_rail<?= $no ?>" data-id="<?= $no ?>" width="100%">
@@ -281,20 +303,38 @@ $rails = $this->db->get_where('mp_rail', ['activation' => 'aktif'])->result();
 		no = $(this).data('id');
 		id_rail = $('#rail_material' + no).val();
 		overlap_curtain(no);
-		diskon_rail_curtain(no);
 		getBasicComponent(id_rail, no)
+		subtotal_rail(no)
+		diskon_rail_curtain(no);
+		total_rail(no)
 
 	})
 
 	function overlap_curtain(no) {
 		overlap = $('#overlap' + no).val() || 0;
+		qty = $('#qty_unit' + no).val() || 0;
 		window_width = $('#window_width' + no).val() || 0;
 		price_rail = $('#price_rail' + no).val().replace(/,/g, '') || 0;
 
 		t_width_rail = parseInt(window_width) + parseInt(overlap);
 		$('#width_rail' + no).val(t_width_rail / 100);
 
-		t_price_rail = parseInt(price_rail) * (parseInt(t_width_rail) / 100);
+		t_price_rail = (parseInt(price_rail) * (parseInt(t_width_rail) / 100) * qty);
 		$('#t_price_rail' + no).val(("" + t_price_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','));
+	}
+
+	function subtotal_rail(no) {
+		let t_price_rail = $('#t_price_rail' + no).val().replace(/,/g, '') || 0;
+		let t_add_comp_rail = $('#total_add_comp_rail' + no).val().replace(/,/g, '') || 0;
+		let subtotal_rail = parseInt(t_price_rail) + parseInt(t_add_comp_rail);
+		$('#subtotal_rail' + no).val(("" + subtotal_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
+	}
+
+	function total_rail(no) {
+		let v_disc_rail = $('#v_diskon_rail' + no).val().replace(/,/g, '') || 0;
+		console.log(v_disc_rail);
+		let subtotal_rail = $('#subtotal_rail' + no).val().replace(/,/g, '') || 0;
+		let total_rail = parseInt(subtotal_rail) - parseInt(v_disc_rail);
+		$('#total_rail' + no).val(("" + total_rail.toFixed()).replace(/\B(?=(?:\d{3})+(?!\d))/g, ','))
 	}
 </script>

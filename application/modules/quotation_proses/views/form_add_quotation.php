@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.css') ?>">
-
 <?php
 
 if (!empty($this->uri->segment(3))) {
@@ -16,7 +14,7 @@ if (!empty($this->uri->segment(3))) {
 // exit;
 ?>
 <form id="form-quotation" class="form-active" method="post" enctype="multipart/form-data">
-	<div class="box box-success">
+	<div class="box box-primary">
 		<div class="box-header">
 			<table id="my-grid3" class="table-condensed" width="100%">
 				<thead>
@@ -167,14 +165,17 @@ if (!empty($this->uri->segment(3))) {
 
 
 		<hr>
-		<div class="box-body">
-			<table id="my-grid3" class="table-condensed" width="100%">
-				<thead>
-					<tr>
-						<th class="text">DETAIL DATA ORDER</th>
-					</tr>
-				</thead>
-			</table>
+		<div class="box box-solid">
+			<div class="box-header">
+				<!-- <h3 class="box-title"></h3> -->
+				<table id="my-grid3" class="table-condensed" width="100%">
+					<thead>
+						<tr>
+							<th class="text">DETAIL DATA ORDER</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 			<div class="box-body">
 				<div class="" id="data-item">
 				</div>
@@ -183,11 +184,11 @@ if (!empty($this->uri->segment(3))) {
 
 				</div>
 			</div>
-		</div>
-		<div class="box-footer">
-			<?php
-			echo form_button(array('type' => 'button', 'class' => 'btn btn-md btn-success label_input', 'style' => 'min-width:100px; float:right;', 'value' => 'save', 'content' => 'Save', 'id' => 'saveQuotation')) . ' ';
-			?>
+			<div class="box-footer">
+				<?php
+				echo form_button(array('type' => 'button', 'class' => 'btn btn-md btn-success label_input', 'style' => 'min-width:100px; float:right;', 'value' => 'save', 'content' => 'Save', 'id' => 'saveQuotation')) . ' ';
+				?>
+			</div>
 		</div>
 	</div>
 </form>
@@ -217,157 +218,12 @@ if (!empty($this->uri->segment(3))) {
 	</div>
 </div>
 
-<style>
-	.inSp {
-		text-align: center;
-		display: inline-block;
-		width: 100px;
-	}
-
-	.inSp2 {
-		text-align: center;
-		display: inline-block;
-		width: 45%;
-	}
-
-	.inSpL {
-		text-align: left;
-	}
-
-	.vMid {
-		vertical-align: middle !important;
-	}
-
-	.w10 {
-		display: inline-block;
-		width: 10%;
-	}
-
-	.w15 {
-		display: inline-block;
-		width: 15%;
-	}
-
-	.w20 {
-		display: inline-block;
-		width: 20%;
-	}
-
-	.w30 {
-		display: inline-block;
-		width: 30%;
-	}
-
-	.w40 {
-		display: inline-block;
-		width: 40%;
-	}
-
-	.w50 {
-		display: inline-block;
-		width: 50%;
-	}
-
-	.w60 {
-		display: inline-block;
-		width: 60%;
-	}
-
-	.w70 {
-		display: inline-block;
-		width: 70%;
-	}
-
-	.w80 {
-		display: inline-block;
-		width: 80%;
-	}
-
-	.w90 {
-		display: inline-block;
-		width: 90%;
-	}
-
-	.hideIt {
-		display: none;
-	}
-
-	.showIt {
-		display: block;
-	}
-
-
-
-
-	.switch {
-		position: relative;
-		display: inline-block;
-		width: 36px;
-		height: 20px;
-	}
-
-	.switch input {
-		opacity: 0;
-		width: 0;
-		height: 0;
-	}
-
-	.slider {
-		position: absolute;
-		cursor: pointer;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #ccc;
-		-webkit-transition: .4s;
-		transition: .4s;
-	}
-
-	.slider:before {
-		position: absolute;
-		content: "";
-		height: 16px;
-		width: 16px;
-		left: 2px;
-		bottom: 2px;
-		background-color: white;
-		-webkit-transition: .4s;
-		transition: .4s;
-	}
-
-	input:checked+.slider {
-		background-color: #2196F3;
-	}
-
-	input:focus+.slider {
-		box-shadow: 0 0 1px #2196F3;
-	}
-
-	input:checked+.slider:before {
-		-webkit-transform: translateX(16px);
-		-ms-transform: translateX(16px);
-		transform: translateX(16px);
-	}
-
-	/* Rounded sliders */
-	.slider.round {
-		border-radius: 20px;
-	}
-
-	.slider.round:before {
-		border-radius: 50%;
-	}
-</style>
-<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.min.js') ?>"></script>
-
 <script type="text/javascript">
 	$(function() {
-		if ('<?= $ruang[0]->id_quotation ?>' != '') {
+		if ('<?= $getData->id ?>' != '') {
 			var selector = "ruang";
 			var selectorCount = 0;
-			var id = '<?= $ruang[0]->id_quotation ?>';
+			var id = '<?= $getData->id ?>';
 			// alert(selectorCount)
 			$('div[data-item=' + selector + ']').each(function() {
 				selectorCount++;
@@ -408,6 +264,7 @@ if (!empty($this->uri->segment(3))) {
 	$(document).on('click', '#tambah-ruang', function() {
 		var selector = "ruang";
 		var selectorCount = 0;
+		var nomor = $('#nomor').val();
 
 		$('div[data-item=' + selector + ']').each(function() {
 			selectorCount++;
@@ -420,7 +277,8 @@ if (!empty($this->uri->segment(3))) {
 				url: siteurl + active_controller + 'load_form',
 				type: 'POST',
 				data: {
-					'count': count
+					'count': count,
+					'nomor': nomor,
 				},
 				success: function(data) {
 					$("#data-item").append(data);
@@ -432,7 +290,8 @@ if (!empty($this->uri->segment(3))) {
 				url: siteurl + active_controller + 'load_form',
 				type: 'POST',
 				data: {
-					'count': count
+					'count': count,
+					'nomor': nomor
 				},
 				success: function(data) {
 					$("#data-item").append(data);
@@ -519,13 +378,13 @@ if (!empty($this->uri->segment(3))) {
 
 	})
 
-	$('#dtDetail').DataTable({
-		"paging": false,
-		"searching": false,
-		"lengthChange": false,
-		"ordering": false
+	// $('#dtDetail').DataTable({
+	// 	"paging": false,
+	// 	"searching": false,
+	// 	"lengthChange": false,
+	// 	"ordering": false
 
-	});
+	// });
 
 
 	jQuery(document).on('keyup keypress blur', '.numberOnly', function() {
@@ -548,7 +407,7 @@ if (!empty($this->uri->segment(3))) {
 	});
 
 	//========================================================================
-	var id = $('#id_quotation').val();
+	var id = $('#nomor').val();
 	if (id == '') {
 		$.ajax({
 			url: siteurl + active_controller + "getID",
@@ -558,7 +417,7 @@ if (!empty($this->uri->segment(3))) {
 				'id': id
 			},
 			success: function(result) {
-				$('#id_quotation').val(result.id);
+				$('#nomor').val(result.id);
 			},
 			error: function(request, error) {
 				console.log(arguments);
